@@ -2,7 +2,7 @@ use crate::*;
 
 pub const NEAR_ACCOUNT: &str = "near";
 
-#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, PartialEq, Debug)]
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 pub enum Status {
     Pending,
@@ -20,7 +20,7 @@ pub enum VAddress {
 #[serde(crate = "near_sdk::serde")]
 pub struct Address {
     pub chain: String,
-    pub date: u64,
+    pub date: Timestamp,
     pub reporter: AccountId,
     pub address: String,
     pub ipfs: String,
@@ -48,7 +48,7 @@ pub struct AddressInput {
 #[serde(crate = "near_sdk::serde")]
 pub struct AddressOutput {
     pub chain: String,
-    pub date: u64,
+    pub date: U64,
     pub reporter: AccountId,
     pub address: String,
     pub ipfs: String,
@@ -60,7 +60,7 @@ impl From<VAddress> for AddressOutput {
         match v_address {
             VAddress::Current(address) => AddressOutput {
                 chain: address.chain,
-                date: address.date,
+                date: address.date.into(),
                 reporter: address.reporter,
                 address: address.address,
                 ipfs: address.ipfs,
@@ -83,13 +83,94 @@ impl VAddress {
     }
 }
 
+pub trait AddressManagment {
+    fn create_address(&mut self, case_id: u64, address: AddressInput);
+    fn update_address_link(
+        &mut self,
+        case_id: u64,
+        address: String,
+        chain: String,
+        ipfs_link: String,
+    );
+    fn update_status(&mut self, case_id: u64, address: String, chain: String, status: Status);
+}
+
 #[near_bindgen]
-#[allow(dead_code)]
-impl Contract {
-    pub fn create_address(&mut self, case_id: u64, address: AddressInput) {
+impl AddressManagment for Contract {
+    fn create_address(&mut self, case_id: u64, address: AddressInput) {
         let mut case: Case = self.cases.get(&case_id).expect("ERR: no such case").into();
         let address_id = format!("{}{}", address.chain, address.address);
 
         case.addresses.insert(&address_id, &VAddress::new(address));
+
+        case.date = env::block_timestamp();
+
+        self.cases.insert(&case_id, &VCase::Current(case));
+    }
+
+    fn update_address_link(
+        &mut self,
+        case_id: u64,
+        address: String,
+        chain: String,
+        ipfs_link: String,
+    ) {
+        assert!(
+            self.admins.contains(&env::predecessor_account_id()),
+            "ERR: you have not access"
+        );
+
+        let mut case: Case = self
+            .cases
+            .get(&case_id)
+            .expect("ERR: case not found")
+            .into();
+
+        let address_id = format!("{}{}", chain, address);
+
+        let mut address: Address = case
+            .addresses
+            .get(&address_id)
+            .expect("ERR: address not found")
+            .into();
+
+        address.ipfs = ipfs_link;
+        address.date = env::block_timestamp();
+
+        case.addresses
+            .insert(&address_id, &VAddress::Current(address));
+        case.date = env::block_timestamp();
+
+        self.cases.insert(&case_id, &VCase::Current(case));
+    }
+
+    fn update_status(&mut self, case_id: u64, address: String, chain: String, status: Status) {
+        assert!(
+            self.admins.contains(&env::predecessor_account_id()),
+            "ERR: you have not access"
+        );
+
+        let mut case: Case = self
+            .cases
+            .get(&case_id)
+            .expect("ERR: case not found")
+            .into();
+
+        let address_id = format!("{}{}", chain, address);
+
+        let mut address: Address = case
+            .addresses
+            .get(&address_id)
+            .expect("ERR: address not found")
+            .into();
+
+        address.status = status;
+        address.date = env::block_timestamp();
+
+        case.addresses
+            .insert(&address_id, &VAddress::Current(address));
+        case.date = env::block_timestamp();
+
+        self.cases.insert(&case_id, &VCase::Current(case));
     }
 }

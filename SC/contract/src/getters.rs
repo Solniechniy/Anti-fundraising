@@ -27,7 +27,7 @@ impl Getters for Contract {
     }
 
     fn get_addresses(&self, case_id: u64) -> Vec<AddressOutput> {
-        let case: Case = self.cases.get(&case_id).expect("ERR: no such case").into();
+        let case: Case = self.cases.get(&case_id).expect("ERR: case not found").into();
 
         case.addresses
             .iter()

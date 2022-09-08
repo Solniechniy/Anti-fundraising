@@ -7,7 +7,7 @@ import { CaseContract } from 'services/contracts';
 import { useCaseService } from './CaseContractServiceProvider';
 import assertFulfilled from './helpers';
 import {
-  Case, Address, DataContextType, CategoryMap,
+  Case, Address, DataContextType, CategoryMap, StatusMap,
 } from './interfaces';
 import { useWalletData } from './NearWalletProvider';
 
@@ -24,6 +24,8 @@ const DEFAULT_PAGE_LIMIT = 100;
 
 export async function retrieveCaseResult(pages: number, contract: CaseContract) {
   const allCategories = Object.entries(CategoryMap);
+  const allStatuses = Object.entries(StatusMap);
+
   return (await Promise.allSettled(
     [...Array(pages)]
       .map((_, i) => contract.getCases(i * DEFAULT_PAGE_LIMIT, DEFAULT_PAGE_LIMIT)),

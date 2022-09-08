@@ -144,7 +144,7 @@ export function ListItem({ singleCase }: { singleCase: Case }){
             {singleCase.title}
           </CaseTitle>
         </Row>
-        <Row>
+        <Row justify="flex-start">
           <Id>
             ID:
             {' '}

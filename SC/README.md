@@ -1,5 +1,7 @@
 # Antif
 
+It is a smart contract which collect addresses in different category.
+
 ## Getting started
 
 Preparing process
@@ -41,9 +43,10 @@ Here you can take a time for creating auction https://currentmillis.com.
 Add 000000 to the time for recieving time in nanoseconds.
 ```bash
 near call $CONTRACT_ID create_case '{"case":{
-"name":"Rusni pi*da",
+"title":"Rusni pi*da",
 "description":"Some description",
-"ipfs": "link"
+"ipfs": "link",
+"category": "TerroristFinancing"
 }}' --accountId $OWNER_ID --gas=41000000000000
 ```
 
@@ -52,7 +55,7 @@ CREATE ADDRESS
 near call $CONTRACT_ID create_address '{"case_id": 0,"address":{
 "chain":"NEAR",
 "address":"proverka.testnet",
-"ipfs": "voenkomatiwe"
+"ipfs": "link"
 }}' --accountId $OWNER_ID --gas=41000000000000
 ```
 

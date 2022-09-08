@@ -136,6 +136,9 @@ export const Header = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  & > button:last-child {
+    margin-left: 1rem;
+  }
 `;
 
 export const Button = styled(Primary)`

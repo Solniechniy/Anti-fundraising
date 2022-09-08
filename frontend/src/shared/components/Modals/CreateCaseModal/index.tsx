@@ -63,11 +63,13 @@ export default function CreateCaseModal({
           value={form.caseName}
           handleChange={handleChange}
           title="Case Name"
+          name="caseName"
         />
         <Select
           category={categoryArray}
           title="Category"
           handleChange={handleChange}
+          name="category"
         />
         <TextArea
           value={form.description}

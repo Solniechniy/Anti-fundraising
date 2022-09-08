@@ -23,6 +23,7 @@ export const StatusMap = {
 };
 
 export enum Chain {
+  None = '',
   BNB = 'BNB',
   NEAR = 'NEAR',
   ETH = 'ETH',
@@ -30,6 +31,7 @@ export enum Chain {
 }
 
 export const ChainMap = {
+  [Chain.None]: 'None',
   [Chain.BNB]: 'BNB',
   [Chain.NEAR]: 'NEAR',
   [Chain.ETH]: 'ETH',

@@ -34,6 +34,6 @@ export interface IInternalProviderModalState {
 }
 
 export const initialModalState: IInternalProviderModalState = {
-  modal: EModals.EMPTY,
+  modal: EModals.CREATE_CASE_MODAL, // todo EModals.EMPTY
   props: null,
 };

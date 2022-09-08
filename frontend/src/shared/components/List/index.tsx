@@ -5,6 +5,9 @@ import {
   Case, Category, CategoryMap, Status, StatusMap,
 } from 'providers/interfaces';
 
+import { ReactComponent as Circle } from '../../../assets/images/circle.svg';
+import Pagination from '../Pagination';
+
 export const ListWrapper = styled.div`
   padding: 24px;
   background-color: rgb(29,29,35);
@@ -16,7 +19,11 @@ export const ListItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin: 30px;
+  border-radius: 16px;
+  padding: 8px;
+  :hover{
+    background-color: rgb(41,40,46);
+  }
 `;
 
 export const Column = styled.div`
@@ -111,11 +118,64 @@ export const CategoryText = styled.p`
 `;
 
 export const StatusWrapper = styled.div<{ statusEnum: Status }>`
-  background-color: ${({ statusEnum }) => (statusEnum === Status.Loaded ? '#8FD958' : '#FF5F6033')};
+  background-color: ${({ statusEnum }) => {
+    switch (statusEnum){
+      case Status.Approved: return 'rgba(143, 217, 88, 0.2)';
+      case Status.Loaded: return 'rgba(237, 187, 82, 0.2)';
+      case Status.Pending: return 'rgba(184, 184, 191, 0.1)';
+      case Status.Rejected: return 'rgba(255, 95, 96, 0.2)';
+      default: return 'rgba(184, 184, 191, 0.1)';
+    }
+  }};
+  color: ${({ statusEnum }) => {
+    switch (statusEnum){
+      case Status.Approved: return 'rgba(143, 217, 88)';
+      case Status.Loaded: return 'rgba(237, 187, 82)';
+      case Status.Pending: return '#B8B8BF';
+      case Status.Rejected: return 'rgba(255, 95, 96)';
+      default: return '#B8B8BF';
+    }
+  }};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  padding: 1.5px 4px;
+  margin-left: 8px;
 `;
 
-export function StatusComponent(){
-  return <StatusWrapper statusEnum={Status.Approved}>Approve</StatusWrapper>;
+export const CircleElement = styled(Circle)<{ statusEnum: Status }>`
+  width: 12px;
+  height: 12px;
+  display: flex;
+  margin-right: 4px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+  >circle {
+    stroke: ${({ statusEnum }) => {
+    switch (statusEnum){
+      case Status.Approved: return 'rgba(143, 217, 88)';
+      case Status.Loaded: return 'rgba(237, 187, 82)';
+      case Status.Pending: return '#B8B8BF';
+      case Status.Rejected: return 'rgba(255, 95, 96)';
+      default: return '#B8B8BF';
+    }
+  }};
+  }
+`;
+
+export function StatusComponent({ singleCase }:{ singleCase: Case }){
+  return (
+    <StatusWrapper statusEnum={singleCase.status}>
+      <CircleElement statusEnum={singleCase.status} />
+
+      Approve
+
+    </StatusWrapper>
+  );
 }
 
 const formatCaseDate = (date: Date) => format(date, 'yyyy-mm-dd, hh:mm:ss');
@@ -141,10 +201,10 @@ export function ListItem({ singleCase }: { singleCase: Case }){
         </Row>
       </Column>
       <Column>
-        <Row>
+        <Row justify="flex-end">
           Show Diagram
 
-          <StatusComponent />
+          <StatusComponent singleCase={singleCase} />
         </Row>
         <Row>
           <DateWrapper>
@@ -160,6 +220,7 @@ export default function List({ cases }:{ cases: Case[] }){
   return (
     <ListWrapper>
       {cases.map((el) => <ListItem key={el.id} singleCase={el} />) }
+      <Pagination currentPage={1} countOfListItems={10} changePageHandler={() => {}} />
     </ListWrapper>
   );
 }

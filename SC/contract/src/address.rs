@@ -75,7 +75,7 @@ impl VAddress {
         Self::Current(Address {
             chain: address_input.chain,
             reporter: env::predecessor_account_id(),
-            date: env::block_timestamp(),
+            date: env::block_timestamp_ms(),
             ipfs: address_input.ipfs,
             address: address_input.address,
             status: Status::Pending,
@@ -103,7 +103,7 @@ impl AddressManagment for Contract {
 
         case.addresses.insert(&address_id, &VAddress::new(address));
 
-        case.date = env::block_timestamp();
+        case.date = env::block_timestamp_ms();
 
         self.cases.insert(&case_id, &VCase::Current(case));
     }
@@ -135,11 +135,11 @@ impl AddressManagment for Contract {
             .into();
 
         address.ipfs = ipfs_link;
-        address.date = env::block_timestamp();
+        address.date = env::block_timestamp_ms();
 
         case.addresses
             .insert(&address_id, &VAddress::Current(address));
-        case.date = env::block_timestamp();
+        case.date = env::block_timestamp_ms();
 
         self.cases.insert(&case_id, &VCase::Current(case));
     }
@@ -165,11 +165,11 @@ impl AddressManagment for Contract {
             .into();
 
         address.status = status;
-        address.date = env::block_timestamp();
+        address.date = env::block_timestamp_ms();
 
         case.addresses
             .insert(&address_id, &VAddress::Current(address));
-        case.date = env::block_timestamp();
+        case.date = env::block_timestamp_ms();
 
         self.cases.insert(&case_id, &VCase::Current(case));
     }

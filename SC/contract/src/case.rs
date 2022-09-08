@@ -2,22 +2,50 @@ use crate::*;
 
 pub const NEAR_ACCOUNT: &str = "near";
 
+#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize, PartialEq, Debug)]
+#[serde(crate = "near_sdk::serde")]
+pub enum HapiCategory {
+    None,
+    WalletService,
+    MerchantService,
+    MiningPool,
+    LowRiskExchange,
+    MediumRiskExchange,
+    DeFi,
+    OTCBroker,
+    ATM,
+    Gambling,
+    IllicitOrganization,
+    Mixer,
+    DarknetService,
+    Scam,
+    Ransomware,
+    Theft,
+    Counterfeit,
+    TerroristFinancing,
+    Sanctions,
+    ChildAbuse,
+}
+
 /// Auction information for creating new auction.
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CaseInput {
-    pub name: String,
+    pub title: String,
     pub description: String,
     pub ipfs: String,
+    pub category: HapiCategory,
 }
 
 #[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct CaseOutput {
-    pub name: String,
+    pub title: String,
     pub description: String,
     pub date: U64,
     pub ipfs: String,
+    pub category: HapiCategory,
+    pub num_addresses: u64,
 }
 
 /// Case information.
@@ -28,9 +56,10 @@ pub enum VCase {
 
 #[derive(BorshSerialize, BorshDeserialize)]
 pub struct Case {
-    pub name: String,
+    pub title: String,
     pub description: String,
     pub date: Timestamp,
+    pub category: HapiCategory,
     pub ipfs: String,
     pub addresses: UnorderedMap<String, VAddress>,
 }
@@ -47,10 +76,12 @@ impl From<VCase> for CaseOutput {
     fn from(v_case: VCase) -> Self {
         match v_case {
             VCase::Current(case) => CaseOutput {
-                name: case.name,
+                title: case.title,
                 description: case.description,
                 date: case.date.into(),
                 ipfs: case.ipfs,
+                category: case.category,
+                num_addresses: case.addresses.len()
             },
         }
     }
@@ -59,10 +90,11 @@ impl From<VCase> for CaseOutput {
 impl VCase {
     pub fn new(case_id: u64, case_input: CaseInput) -> Self {
         Self::Current(Case {
-            name: case_input.name,
+            title: case_input.title,
             description: case_input.description,
-            date: env::block_timestamp(),
+            date: env::block_timestamp_ms(),
             ipfs: case_input.ipfs,
+            category: case_input.category,
             addresses: UnorderedMap::new(StorageKey::Addresses { case_id }),
         })
     }
@@ -96,7 +128,7 @@ impl CaseManagment for Contract {
             .into();
 
         case.ipfs = ipfs_link;
-        case.date = env::block_timestamp();
+        case.date = env::block_timestamp_ms();
 
         self.cases.insert(&case_id, &VCase::Current(case));
     }

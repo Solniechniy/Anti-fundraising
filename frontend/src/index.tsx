@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 
+import { CaseContractServiceProvider } from 'providers/CaseContractServiceProvider';
 import { DataProvider } from 'providers/DataProvider';
 import { WalletProvider } from 'providers/NearWalletProvider';
 import AppRoutes from 'routes';
@@ -16,9 +17,11 @@ export default function AppWrapper() {
     <ThemeProvider theme={theme}>
       <ModalProvider>
         <WalletProvider>
-          <DataProvider>
-            <AppRoutes />
-          </DataProvider>
+          <CaseContractServiceProvider>
+            <DataProvider>
+              <AppRoutes />
+            </DataProvider>
+          </CaseContractServiceProvider>
         </WalletProvider>
       </ModalProvider>
     </ThemeProvider>

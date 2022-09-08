@@ -18,6 +18,7 @@ export const DECIMALS_DEFAULT_VALUE = 0;
 export const ICON_DEFAULT_VALUE = '';
 export const GAS_JOIN = toTGas('30');
 export const SAMPLE_GAS = toTGas('41');
+export const ITEMS_PER_PAGE = 10;
 
 export enum EDimensions {
   SMALL = 'SMALL',

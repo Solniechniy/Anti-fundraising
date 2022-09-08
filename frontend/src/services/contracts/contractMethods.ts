@@ -10,18 +10,7 @@ export const nftViewMethods: string[] = ['nft_metadata', 'nft_token'];
 export const nftChangeMethods: string[] = ['ft_transfer_call'];
 
 export const auctionViewMethods: string[] = [
-  'get_num_auctions',
-  'get_auction',
-  'get_auctions',
-  'get_num_accounts',
-  'get_auctions_accounts',
-  'get_winner',
-  'get_auction_account',
-  'get_auction_accounts',
-  'has_account',
-  'get_join_fee',
+  'get_num_cases',
+  'get_cases',
 ];
-export const auctionChangeMethods: string[] = [
-  'claim_refund',
-  'claim_nft',
-];
+export const auctionChangeMethods: string[] = [];

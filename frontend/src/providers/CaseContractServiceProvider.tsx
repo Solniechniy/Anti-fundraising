@@ -15,8 +15,8 @@ const config = getConfig();
 
 const CaseServiceContextHOC = createContext<CaseServiceContextType>({} as CaseServiceContextType);
 
-export function AuctionServiceProvider({ children }:{ children: JSX.Element }) {
-  const [caseContract, setAuctionContract] = useState<CaseContract | undefined>();
+export function CaseContractServiceProvider({ children }:{ children: JSX.Element }) {
+  const [caseContract, setCaseContract] = useState<CaseContract | undefined>();
 
   const {
     wallet, near, accountId,
@@ -29,8 +29,7 @@ export function AuctionServiceProvider({ children }:{ children: JSX.Element }) {
       const connectedToNearInstance = instance.withConnect(near);
 
       if (wallet && accountId) connectedToNearInstance.withWalletConnection(wallet);
-
-      setAuctionContract(connectedToNearInstance);
+      setCaseContract(connectedToNearInstance);
     };
 
     createInstance();

@@ -1,9 +1,11 @@
 import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import {
   Case, CategoryMap,
 } from 'providers/interfaces';
+import { ITEMS_PER_PAGE } from 'shared/constant';
 
 import Pagination from '../Pagination';
 import { StatusComponent } from '../Status';
@@ -15,6 +17,9 @@ export const ListWrapper = styled.div`
   height: 959px;
   align-self: center;
   border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const ListItemWrapper = styled.div`
@@ -119,7 +124,16 @@ export const CategoryText = styled.p`
   margin: 2px 4px;
 `;
 
-const formatCaseDate = (date: Date) => format(date, 'yyyy-mm-dd, hh:mm:ss');
+export const CasesWrapper = styled.div``;
+
+const formatCaseDate = (date: Date) => {
+  try {
+    return format(date, 'yyyy-mm-dd, hh:mm:ss');
+  } catch (e){
+    console.warn(date);
+    return 0;
+  }
+};
 
 export function ListItem({ singleCase }: { singleCase: Case }){
   return (
@@ -130,7 +144,7 @@ export function ListItem({ singleCase }: { singleCase: Case }){
             {singleCase.title}
           </CaseTitle>
         </Row>
-        <Row>
+        <Row justify="flex-start">
           <Id>
             ID:
             {' '}
@@ -157,11 +171,33 @@ export function ListItem({ singleCase }: { singleCase: Case }){
   );
 }
 
-export default function List({ cases }:{ cases: Case[] }){
+export default function List({ cases }:{ cases: { [key:string]: Case } }){
+  const [skip, setSkip] = useState<number>();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const [currentCases, setCurrentCases] = useState(Object.values(cases));
+  function generateSkip(page: number): number {
+    return (page - 1) * ITEMS_PER_PAGE;
+  }
+
+  useEffect(() => {
+    setSkip(generateSkip(currentPage));
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentCases(Object.values(cases).slice(skip));
+  }, [cases, skip]);
+
   return (
     <ListWrapper>
-      {cases.map((el) => <ListItem key={el.id} singleCase={el} />) }
-      <Pagination currentPage={1} countOfListItems={10} changePageHandler={() => {}} />
+      <CasesWrapper>
+        {currentCases.map((el) => <ListItem key={el.id} singleCase={el} />)}
+      </CasesWrapper>
+      <Pagination
+        currentPage={currentPage}
+        countOfListItems={Object.keys(cases).length}
+        changePageHandler={setCurrentPage}
+      />
     </ListWrapper>
   );
 }

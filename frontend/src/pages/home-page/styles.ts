@@ -13,7 +13,6 @@ const Header = styled.div`
   font-weight: 600;
   font-size: .75rem;
   line-height: .938rem;
-  margin-top: 2.5rem;
   margin-bottom: 1.75rem;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     min-width: auto;

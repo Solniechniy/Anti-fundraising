@@ -66,6 +66,10 @@ const SaveCaseBtn = styled.button`
   background: #B7DA44;
   border-radius: 8px;
   min-width: 308px;
+  :disabled {
+    background: #B8B8BF;
+    cursor: not-allowed;
+  }
 `;
 
 const Footer = styled.div`

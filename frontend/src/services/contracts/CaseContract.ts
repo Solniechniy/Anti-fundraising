@@ -78,10 +78,12 @@ export default class CaseContract {
         functionCalls: [{
           methodName: 'create_case',
           args: {
-            title,
-            description,
-            ipfs,
-            category,
+            case: {
+              title,
+              description,
+              ipfs,
+              category,
+            },
           },
           amount: ZERO,
         }],
@@ -95,6 +97,7 @@ export default class CaseContract {
   }:{
     chain: string,
     ipfs: string,
+
   }): Action[] {
     return [
       {
@@ -102,8 +105,11 @@ export default class CaseContract {
         functionCalls: [{
           methodName: 'create_address',
           args: {
-            chain,
-            ipfs,
+            address: {
+              chain,
+              ipfs,
+              address: this.accountId,
+            },
           },
           amount: ZERO,
         }],

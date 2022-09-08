@@ -102,12 +102,15 @@ export const CategoryText = styled.p`
 
 export default function Address({ address }: { address: IAddress }){
   const Image = getChainIcon(address.chain);
+  const date = new Date(Number(address.date));
+  console.log(address);
+
   return (
     <AddressWrapper>
       <AddressTitle>{address.address}</AddressTitle>
       <AdditionalInfo>
         <DateWrapper>
-          {`Added: ${formatCaseDate(address.date)} UTC`}
+          {`Added: ${formatCaseDate(date)} UTC`}
         </DateWrapper>
         <ReporterTitle>
           {address.reporter}

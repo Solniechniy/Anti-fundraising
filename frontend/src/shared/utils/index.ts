@@ -9,3 +9,7 @@ export const formatTokenAmount = (value: string, decimals = 18, precision?: numb
 
 export const parseTokenAmount = (value: string, decimals = 18): string => value
   && Big(value).times(Big(BASE).pow(decimals)).toFixed(0);
+
+export function isNotNullOrUndefined<T extends Object>(input: null | undefined | T): input is T {
+  return input != null;
+}

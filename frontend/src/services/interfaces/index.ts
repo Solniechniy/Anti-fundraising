@@ -66,6 +66,7 @@ export interface IContract {
 export interface NativeContract extends Contract {
   get_cases?({ from_index, limit }: { from_index: number, limit: number }): any | undefined
   get_num_cases?(): number | undefined
+  get_addresses?({ case_id }: { case_id: number }): ICase | undefined
 }
 
 export enum ContractMethod {
@@ -81,4 +82,13 @@ export interface IStorageBalance {
 export interface IStorageBalanceBounds {
   min: string,
   max: string
+}
+
+export interface ICase {
+  chain: string,
+  date: string,
+  reporter: string,
+  address: string,
+  ipfs: string,
+  status: string,
 }

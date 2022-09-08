@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import {
+  Category,
   CategoryMap, Chain, ChainMap, getChainIcon,
 } from 'providers/interfaces';
 
@@ -89,7 +90,7 @@ export default function Address(){
           {`Added: ${formatCaseDate(new Date())} UTC`}
         </DateWrapper>
         <CategoryWrapper>
-          <CategoryText>{CategoryMap[1]}</CategoryText>
+          <CategoryText>{CategoryMap[Category.ChildAbuse]}</CategoryText>
         </CategoryWrapper>
         <CategoryWrapper>
           <Image />

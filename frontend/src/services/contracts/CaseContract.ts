@@ -2,6 +2,7 @@ import { Contract, Near, WalletConnection } from 'near-api-js';
 
 import {
   Action,
+  ICase,
   NativeContract,
 } from 'services/interfaces';
 import { ZERO } from 'shared/constant';
@@ -53,6 +54,11 @@ export default class CaseContract {
   async getNumberOfCases() {
     const contract = await this.initializeContract(this.contractId);
     return contract.get_num_cases?.();
+  }
+
+  async getAddresses(caseId: number): Promise<ICase | undefined> {
+    const contract = await this.initializeContract(this.contractId);
+    return contract.get_addresses?.({ case_id: caseId });
   }
 
   createCaseAction({

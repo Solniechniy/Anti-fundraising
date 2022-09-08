@@ -3,6 +3,7 @@ import {
 } from 'react';
 
 import { CaseContract } from 'services/contracts';
+import { isNotNullOrUndefined } from 'shared/utils';
 
 import { useCaseService } from './CaseContractServiceProvider';
 import assertFulfilled from './helpers';
@@ -43,6 +44,16 @@ export async function retrieveCaseResult(pages: number, contract: CaseContract) 
 
 export const toMap = (array: any[]) => array.reduce((acc, item) => ({ ...acc, [item.id]: item }), {});
 
+export const retrieveAddresses = async (casesArray: Case[], contract: CaseContract) => {
+  const result = (
+    await Promise.allSettled(casesArray
+      .map((el) => contract.getAddresses(Number(el.id))))
+  )
+    .filter(assertFulfilled)
+    .map(({ value }) => value);
+  return result;
+};
+
 export function DataProvider({ children }:{ children: JSX.Element }) {
   const { wallet } = useWalletData();
   const { caseContract } = useCaseService();
@@ -59,10 +70,15 @@ export function DataProvider({ children }:{ children: JSX.Element }) {
         setLoading(true);
         const casesCount = await caseContract.getNumberOfCases();
         const pages = casesCount ? Math.ceil(casesCount / DEFAULT_PAGE_LIMIT) : 0;
-        const pagesResults = await retrieveCaseResult(pages, caseContract);
-        console.log(pagesResults, 'pagesResults');
+        const pagesResults: Case[] = await retrieveCaseResult(pages, caseContract);
+        const addressesResults = await retrieveAddresses(pagesResults, caseContract);
+        const filteredAddresses = addressesResults
+          .filter(isNotNullOrUndefined)
+          .filter((value) => Object.keys(value).length !== 0);
         const casesMap = toMap(pagesResults);
+        const addressesMap = filteredAddresses.reduce((acc, item, index) => ({ ...acc, [index]: item }), {});
         setCases(casesMap);
+        setAddresses(addressesMap);
       } catch (e) {
         console.warn(`Error: ${e} while initial loading`);
       } finally {

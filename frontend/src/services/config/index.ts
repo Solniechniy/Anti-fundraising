@@ -21,9 +21,9 @@ export default function getConfig(
         walletUrl: 'https://wallet.near.org',
         helperUrl: 'https://helper.mainnet.near.org',
         explorerUrl: 'https://explorer.mainnet.near.org',
-        contractId: 'antif.migration.testnet',
+        contractId: '',
         api: 'https://research.hapilabs.one/v1/track',
-        wnearAddress: 'wrap.near',
+        wNearAddress: 'wrap.near',
       };
   }
 }

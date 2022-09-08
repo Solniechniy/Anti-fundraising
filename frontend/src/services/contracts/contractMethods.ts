@@ -6,11 +6,8 @@ export const ftViewMethods: string[] = [
 ];
 export const ftChangeMethods: string[] = ['ft_transfer_call', 'deposit_near'];
 
-export const nftViewMethods: string[] = ['nft_metadata', 'nft_token'];
-export const nftChangeMethods: string[] = ['ft_transfer_call'];
-
-export const auctionViewMethods: string[] = [
+export const caseViewMethods: string[] = [
   'get_num_cases',
   'get_cases',
 ];
-export const auctionChangeMethods: string[] = [];
+export const caseChangeMethods: string[] = ['create_case', 'create_address'];

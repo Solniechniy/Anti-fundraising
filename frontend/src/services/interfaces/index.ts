@@ -13,12 +13,14 @@ export interface Action {
     amount?: string;
     methodName: string;
     args?: {
-      registration_only?: boolean,
       account_id?: string,
       receiver_id?: string,
-      amount?: string,
-      msg?: string,
-      auction_id?: number,
+      title?: string,
+      description?: string,
+      ipfs?: string,
+      category?: string,
+      chain?: string,
+      address?: string,
     };
   }[];
 }

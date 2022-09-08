@@ -4,6 +4,7 @@ import {
 } from 'react';
 
 import { FungibleTokenContract } from 'services/contracts';
+import { Action } from 'services/interfaces';
 
 export enum Status {
   'Loaded' = 1,
@@ -106,5 +107,5 @@ export type WalletContextType = {
   accountId: string,
   requestSignIn: () => void,
   signOut: () => void,
-  sendTransaction: (action: any) => Promise<void>,
+  sendTransaction: (action: Action[]) => Promise<void>,
 };

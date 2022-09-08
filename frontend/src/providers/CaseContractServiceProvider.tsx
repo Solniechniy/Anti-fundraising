@@ -1,5 +1,5 @@
 import {
-  createContext, useContext, useEffect, useMemo, useState,
+  createContext, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
 
 import getConfig from 'services/config';
@@ -19,7 +19,7 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
   const [caseContract, setCaseContract] = useState<CaseContract | undefined>();
 
   const {
-    wallet, near, accountId,
+    wallet, near, accountId, sendTransaction,
   } = useWalletData();
 
   useEffect(() => {
@@ -34,6 +34,20 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
 
     createInstance();
   }, [accountId, near, wallet]);
+
+  const createCase = useCallback(async () => {
+    if (!caseContract) return;
+    const transaction = caseContract.createCaseAction({
+      title, description, ipfs, category,
+    });
+    await sendTransaction(transaction);
+  }, [caseContract, sendTransaction]);
+
+  const createAddress = useCallback(async () => {
+    if (!caseContract) return;
+    const transaction = caseContract.createAddressAction({ chain, ipfs });
+    await sendTransaction(transaction);
+  }, [caseContract, sendTransaction]);
 
   const caseServiceData = useMemo(() => ({
     caseContract,

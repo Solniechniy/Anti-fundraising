@@ -164,7 +164,6 @@ export default class FungibleTokenContract {
         args: {
           receiver_id: CONTRACT_ID,
           amount: formattedAmount,
-          msg: message,
         },
         amount: ONE_YOCTO_NEAR,
         gas: FT_GAS,
@@ -181,9 +180,6 @@ export default class FungibleTokenContract {
       functionCalls: [{
         methodName: FTTokenContractMethod.depositNear,
         amount,
-        args: {
-          auction_id: auctionId,
-        },
       }],
     });
     return transactions;

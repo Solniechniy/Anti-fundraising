@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
+import { Category, CategoryMap } from 'providers/interfaces';
+
 import styles from './styles';
 
 interface ISelect {
-  category: [string, string][],
+  category: string[],
   title: string,
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -18,9 +20,9 @@ export default function Select({ category, title, handleChange }:ISelect) {
         onChange={handleChange}
       >
         <option value="" />
-        {category.map(([value, name]) => (
-          <option key={value} value={value}>
-            {name}
+        {category.map((el) => (
+          <option key={el} value={el}>
+            {CategoryMap[el as Category]}
           </option>
         ))}
       </styles.StyledSelect>

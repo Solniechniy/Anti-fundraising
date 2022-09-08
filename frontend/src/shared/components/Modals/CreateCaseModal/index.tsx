@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+import { Category } from 'providers/interfaces';
 import ModalWrapper from 'shared/components/Modals/ModalWrapper';
-import { category } from 'shared/constant';
 
 import InputContainer from '../InputContainer';
 import Select from '../InputContainer/Select';
@@ -14,13 +14,13 @@ export interface ICreateCaseModal {
 
 const initialFormValue = {
   caseName: '',
-  category: '',
+  category: Category.None,
   description: '',
 };
 
 export interface IValues {
   caseName: string,
-  category: string,
+  category: Category,
   description: string,
 }
 
@@ -28,7 +28,7 @@ export default function CreateCaseModal({
   closeModal,
 }: ICreateCaseModal): JSX.Element | null {
   const [form, setForm] = useState<IValues>(initialFormValue);
-  const categoryArray = Object.entries(category);
+  const categoryArray = Object.keys(Category);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const nextFormState = {

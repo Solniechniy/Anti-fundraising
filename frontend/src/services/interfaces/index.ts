@@ -21,6 +21,8 @@ export interface Action {
       category?: string,
       chain?: string,
       address?: string,
+      registration_only?: boolean,
+      amount?: string
     };
   }[];
 }

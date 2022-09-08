@@ -3,7 +3,6 @@ import {
   Dispatch, SetStateAction,
 } from 'react';
 
-import { FungibleTokenContract } from 'services/contracts';
 import { Action } from 'services/interfaces';
 
 export enum Status {
@@ -28,26 +27,26 @@ export enum Chain {
 }
 
 export enum Category {
-  None = 0,
-  WalletService,
-  MerchantService,
-  MiningPool,
-  LowRiskExchange,
-  MediumRiskExchange,
-  DeFi,
-  OTCBroker,
-  ATM,
-  Gambling,
-  IllicitOrganization,
-  Mixer,
-  DarknetService,
-  Scam,
-  Ransomware,
-  Theft,
-  Counterfeit,
-  TerroristFinancing,
-  Sanctions,
-  ChildAbuse,
+  None = 'None',
+  WalletService = 'WalletService',
+  MerchantService = 'MerchantService',
+  MiningPool = 'MiningPool',
+  LowRiskExchange = 'LowRiskExchange',
+  MediumRiskExchange = 'MediumRiskExchange',
+  DeFi = 'DeFi',
+  OTCBroker = 'OTCBroker',
+  ATM = 'ATM',
+  Gambling = 'Gambling',
+  IllicitOrganization = 'IllicitOrganization',
+  Mixer = 'Mixer',
+  DarknetService = 'DarknetService',
+  Scam = 'Scam',
+  Ransomware = 'Ransomware',
+  Theft = 'Theft',
+  Counterfeit = 'Counterfeit',
+  TerroristFinancing = 'TerroristFinancing',
+  Sanctions = 'Sanctions',
+  ChildAbuse = 'ChildAbuse',
 }
 
 export const CategoryMap = {

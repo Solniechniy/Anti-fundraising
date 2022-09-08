@@ -35,3 +35,15 @@ export const MEDIA_WIDTHS = {
 
 export const INITIAL_VALUE = '';
 export const ACCOUNT_TRIM_LENGTH = 10;
+
+export const category = {
+  walletService: 'Wallet service',
+  safe: 'Safe',
+  merchantService: 'Merchant service',
+  MiningPool: 'Merchant service',
+  lowRiskExchange: 'Low risk exchange',
+  mediumRiskExchange: 'Medium risk exchange',
+  deFiApplication: 'DeFi application',
+  OTCBroker: 'OTC broker',
+  cryptocurrencyATM: 'Cryptocurrency ATM',
+};

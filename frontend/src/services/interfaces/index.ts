@@ -52,88 +52,21 @@ export interface INFTMetadata {
   reference_hash: string | null,
 }
 
-export interface INFTTokenMetadata {
-  token_id: string,
-  owner_id: string,
-  metadata: {
-    title: string,
-    description: string,
-    media: string,
-    media_hash: string | null,
-    copies: number | null,
-    issued_at: number | null,
-    expires_at: number | null,
-    starts_at: number | null,
-    updated_at: number | null,
-    extra: string[] | null,
-    reference: string | null,
-    reference_hash: string | null,
-    category: string | null,
-    tags: string[] | null,
-    store: string | null,
-    type: string | null,
-    mime_type?: string,
-  }
-}
-
-export interface IAuctionContract {
+export interface IContract {
   getAuctions: (from: number, limit: number) => Promise<void>,
   getNumberOfAuctions: (from: number, limit: number) => Promise<void>,
   getAuctionAccount: (auctionId: number, accountId: string) => Promise<void>,
   hasAccount: (accountId: string) => Promise<void>,
   getJoinFee: () => Promise<void>,
 }
-
-export interface Metadata {
-  project_link: string | null,
-  twitter_link: string | null,
-  medium_link: string | null,
-  telegram_link: string | null,
-}
-
-export interface IAuctionOutput {
-  auction_id: number,
-  nft_contract_id: string,
-  nft_token_id: string,
-  nft_claimed: boolean,
-  deposit_token_id: string,
-  claim_available: boolean,
-  refund_available: boolean,
-  buyout_price: string,
-  start_date: number,
-  end_date: number,
-  collected_amount: string,
-  num_auction_accounts: number,
-  initial_price: string,
-  auction_step: string | null,
-  auction_min_step: string,
-  winner_id: string,
-  winner_bid: string,
-  added_time: string | null,
-  metadata: Metadata,
-}
-
-export interface IAuctionAccount {
-  amount: string,
-  refunded: boolean,
-}
-
 export interface NativeContract extends Contract {
-  get_num_auctions?(): number | undefined
-  get_auction?(params: { auction_id?: number }): IAuctionOutput
-  get_auctions?(params: { from_index?: number, limit?: number }): IAuctionOutput[] | undefined
-  get_num_accounts?(): number | undefined
-  get_auctions_accounts?(params: { auction_id?: number }): number | undefined
-  get_winner?(params: { auction_id?: number }): string | undefined
-  get_auction_account?(params: { auction_id?: number, account_id?: string }): IAuctionAccount | undefined
-  has_account?(params: { account_id?: string }): string | undefined
-  get_join_fee?(): string | undefined
+  get_cases?({ from_index, limit }: { from_index: number, limit: number }): any | undefined
+  get_num_cases?(): number | undefined
 }
 
-export enum AuctionContractMethod {
-  join = 'join',
-  claimNFT = 'claim_nft',
-  claimRefund = 'claim_refund',
+export enum ContractMethod {
+  addCase = 'add_case',
+  addAddress = 'add_address',
 }
 
 export interface IStorageBalance {

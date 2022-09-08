@@ -43,7 +43,7 @@ export interface Case {
   title: string;
   description: string;
   date: Date;
-  ipfsLink: string;
+  ipfsLink: string | null;
   category: Category;
   addressesIds: string[];
   status: Status;
@@ -71,6 +71,6 @@ export type WalletContextType = {
   isSignedIn: boolean,
   accountId: string,
   requestSignIn: () => void,
-  signOut: (tokenBalance: string, lockedAmount: string, token: FungibleTokenContract | null) => void,
+  signOut: () => void,
   sendTransaction: (action: any) => Promise<void>,
 };

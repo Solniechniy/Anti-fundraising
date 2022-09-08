@@ -2,17 +2,17 @@ import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { ReactComponent as DiagramArrow } from 'assets/images/diagram-arrow.svg';
 import {
   Case, CategoryMap,
 } from 'providers/interfaces';
 import { ITEMS_PER_PAGE } from 'shared/constant';
 
 import Pagination from '../Pagination';
-import { StatusComponent } from '../Status';
 
 export const ListWrapper = styled.div`
   padding: 24px;
-  background-color: rgb(29,29,35);
+  background-color: rgb(29, 29, 35);
   width: 699px;
   height: 959px;
   align-self: center;
@@ -22,14 +22,14 @@ export const ListWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const ListItemWrapper = styled.div`
+export const ListItemWrapper = styled.div<{ isStatic: boolean }>`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   border-radius: 16px;
   padding: 8px;
   :hover{
-    background-color: rgb(41,40,46);
+    ${({ isStatic }) => !isStatic && 'background-color:rgb(41,40,46);'}
   }
 `;
 
@@ -126,6 +126,30 @@ export const CategoryText = styled.p`
 
 export const CasesWrapper = styled.div``;
 
+export const DiagramLink = styled.p`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+  color: #B8B8BF;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+`;
+
+export const DiagramRow = styled(Row)`
+  padding: 2px 6px;
+  border-radius: 10px;
+  :hover{
+    background-color: #B8B8BF1A;
+  }
+`;
+
 const formatCaseDate = (date: Date) => {
   try {
     return format(date, 'yyyy-mm-dd, hh:mm:ss');
@@ -135,9 +159,9 @@ const formatCaseDate = (date: Date) => {
   }
 };
 
-export function ListItem({ singleCase }: { singleCase: Case }){
+export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, isStatic?: boolean }){
   return (
-    <ListItemWrapper>
+    <ListItemWrapper isStatic={isStatic}>
       <Column>
         <Row justify="flex-start">
           <CaseTitle>
@@ -157,9 +181,13 @@ export function ListItem({ singleCase }: { singleCase: Case }){
       </Column>
       <Column>
         <Row justify="flex-end">
-          Show Diagram
-
-          <StatusComponent singleCase={singleCase} />
+          <DiagramRow>
+            <DiagramLink>
+              Show Diagram
+              {' '}
+            </DiagramLink>
+            <DiagramArrow />
+          </DiagramRow>
         </Row>
         <Row>
           <DateWrapper>

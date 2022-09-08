@@ -194,7 +194,7 @@ export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, i
   return (
     <ListItemWrapper
       isStatic={isStatic}
-      onClick={() => navigate(Number(singleCase.id))}
+      onClick={() => navigate(`/${Number(singleCase.id)}`)}
     >
       <Column>
         <Row justify="flex-start">

@@ -1,4 +1,4 @@
-import { Case, Category } from 'providers/interfaces';
+import { Case, Category, Status } from 'providers/interfaces';
 import List from 'shared/components/List';
 
 export default function HomePage(): JSX.Element {
@@ -10,6 +10,7 @@ export default function HomePage(): JSX.Element {
     date: new Date(),
     ipfsLink: '',
     addressesIds: [],
+    status: Status.Approved,
   },
   {
     id: '99933460',
@@ -19,6 +20,8 @@ export default function HomePage(): JSX.Element {
     date: new Date(),
     ipfsLink: '',
     addressesIds: [],
+    status: Status.Pending,
+
   }];
 
   return (

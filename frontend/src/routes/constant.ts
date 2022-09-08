@@ -4,4 +4,4 @@ export const APP_ROUTES = {
   DEFAULT: '*',
 };
 
-export const toAuction = (id: number) => APP_ROUTES.HOME + id;
+export const toCase = (id: number) => APP_ROUTES.CASE_BY_ID + id;

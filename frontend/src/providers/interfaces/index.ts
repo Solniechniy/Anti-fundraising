@@ -110,7 +110,7 @@ export interface Case {
   status: Status;
 }
 
-export interface Address {
+export interface IAddress {
   status: Status;
   date: Date;
   reporter: string;
@@ -122,8 +122,8 @@ export interface DataContextType {
   loading: boolean,
   cases: { [key: string]: Case },
   setCases: Dispatch<SetStateAction<{ [key: string]: Case }>>,
-  addresses: { [key: string]: Address },
-  setAddresses: Dispatch<SetStateAction<{ [key: string]: Address }>>
+  addresses: { [key: string]: IAddress },
+  setAddresses: Dispatch<SetStateAction<{ [key: string]: IAddress }>>
 }
 
 export type WalletContextType = {

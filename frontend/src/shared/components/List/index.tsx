@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ReactComponent as AddIcon } from 'assets/images/add-icon.svg';
@@ -17,11 +18,9 @@ export const ListWrapper = styled.div`
   background-color: rgb(29, 29, 35);
   width: 699px;
   height: 959px;
-  align-self: center;
   border-radius: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 export const ListItemWrapper = styled.div<{ isStatic: boolean }>`
@@ -30,6 +29,7 @@ export const ListItemWrapper = styled.div<{ isStatic: boolean }>`
   flex-direction: row;
   border-radius: 16px;
   padding: 8px;
+  cursor: pointer;
   :hover{
     ${({ isStatic }) => !isStatic && 'background-color:rgb(41,40,46);'}
   }
@@ -126,7 +126,10 @@ export const CategoryText = styled.p`
   margin: 2px 4px;
 `;
 
-export const CasesWrapper = styled.div``;
+export const CasesWrapper = styled.div`
+  margin-top: 2rem;
+  flex: 1;
+`;
 
 export const DiagramLink = styled.p`
   font-family: 'Inter';
@@ -144,7 +147,11 @@ export const DiagramLink = styled.p`
   margin-inline-end: 0px;
 `;
 
-export const Header = styled.div``;
+export const Header = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
 
 export const Button = styled(Primary)`
   background-color: #B7DA44;
@@ -181,8 +188,12 @@ export const formatCaseDate = (date: Date) => {
 };
 
 export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, isStatic?: boolean }){
+  const navigate = useNavigate();
   return (
-    <ListItemWrapper isStatic={isStatic}>
+    <ListItemWrapper
+      isStatic={isStatic}
+      onClick={() => navigate(Number(singleCase.id))}
+    >
       <Column>
         <Row justify="flex-start">
           <CaseTitle>

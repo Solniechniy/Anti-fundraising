@@ -1,5 +1,3 @@
-import bg from 'assets/images/background.svg';
-import { useState } from 'react';
 import {
   Navigate,
   Route,
@@ -22,19 +20,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Background = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-
-  background-position: center 5.25rem;
-  background-repeat: no-repeat;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    background-size: 44rem;
-  `}
-`;
-
 const Pages = styled.div<{ isOpened?: boolean }>`
   flex: 1;
   display: ${({ isOpened }) => (isOpened ? 'none' : 'flex')};
@@ -45,13 +30,11 @@ const Pages = styled.div<{ isOpened?: boolean }>`
 `;
 
 export default function AppRoutes(): JSX.Element {
-  const [isOpened, setIsOpened] = useState<boolean>(false);
-
   return (
     <Router>
       <Container>
-        <Pages isOpened={isOpened}>
-          <Header isOpened={isOpened}>
+        <Pages>
+          <Header>
             <Routes>
               <Route path={APP_ROUTES.HOME} element={<HomePage />} />
               <Route path={APP_ROUTES.CASE_BY_ID} element={<CasePage />} />

@@ -36,14 +36,13 @@ const ConnectedButton = styled(Primary)<{ isSignedIn?: boolean }>`
     background: ${({ theme }) => theme.grayOp04};
   }
 `;
-const Button = styled(ConnectedButton)<{ isOpened: boolean }>`
+const Button = styled(ConnectedButton)`
   font-weight: 600;
   font-size: .75rem;
   line-height: .938rem;
   & > svg {
     margin-right: .5rem;
   };
-  visibility: ${(({ isOpened }) => (!isOpened ? 'visible' : 'hidden'))};
 `;
 
 export const HeaderComponent = styled.div`
@@ -72,8 +71,9 @@ export const HeaderRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 80%;
+  margin-bottom: 1.75rem;
 `;
-export function Header({ children, isOpened }: { children: any, isOpened:boolean }){
+export function Header({ children }: { children: any }){
   const {
     requestSignIn, isSignedIn, signOut, accountId,
   } = useWalletData();
@@ -97,7 +97,6 @@ export function Header({ children, isOpened }: { children: any, isOpened:boolean
         <Button
           onClick={buttonAction}
           isSignedIn={isSignedIn}
-          isOpened={isOpened}
         >
           <WalletLogo />
           {title}

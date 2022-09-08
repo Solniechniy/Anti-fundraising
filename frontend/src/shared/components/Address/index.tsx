@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
 import {
+  IAddress,
   Category,
-  CategoryMap, Chain, ChainMap, getChainIcon,
+  CategoryMap,
+  ChainMap,
+  getChainIcon,
 } from 'providers/interfaces';
 
 import { formatCaseDate } from '../List';
@@ -97,24 +100,24 @@ export const CategoryText = styled.p`
   margin: 2px 4px;
 `;
 
-export default function Address(){
-  const Image = getChainIcon(Chain.Bitcoin);
+export default function Address({ address }: { address: IAddress }){
+  const Image = getChainIcon(address.chain);
   return (
     <AddressWrapper>
-      <AddressTitle>18888888EENAhksSohAkYwq7F18ENAhksSohAkYwq7F</AddressTitle>
+      <AddressTitle>{address.address}</AddressTitle>
       <AdditionalInfo>
         <DateWrapper>
-          {`Added: ${formatCaseDate(new Date())} UTC`}
+          {`Added: ${formatCaseDate(address.date)} UTC`}
         </DateWrapper>
         <ReporterTitle>
-          Ihor Cashback
+          {address.reporter}
         </ReporterTitle>
         <CategoryWrapper>
-          <CategoryText>{CategoryMap[Category.ChildAbuse]}</CategoryText>
+          <CategoryText>{CategoryMap[Category.TerroristFinancing]}</CategoryText>
         </CategoryWrapper>
         <CategoryWrapper>
           <Image />
-          <CategoryText>{ChainMap[1]}</CategoryText>
+          <CategoryText>{ChainMap[address.chain]}</CategoryText>
         </CategoryWrapper>
       </AdditionalInfo>
     </AddressWrapper>

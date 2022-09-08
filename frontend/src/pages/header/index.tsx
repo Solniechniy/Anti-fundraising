@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ReactComponent as WalletLogo } from 'assets/icons/wallet.svg';
 import { useWalletData } from 'providers/NearWalletProvider';
 
-const Primary = styled.button<{ isActive?: boolean }>`
+export const Primary = styled.button<{ isActive?: boolean }>`
   cursor: pointer;
   outline: none;
   border: none;
@@ -21,7 +21,6 @@ const Primary = styled.button<{ isActive?: boolean }>`
   max-height: 48px;
   min-height: 36px;
   color: ${({ theme, isActive }) => (isActive ? theme.pink : theme.white)};
-
 `;
 
 const ConnectedButton = styled(Primary)<{ isSignedIn?: boolean }>`

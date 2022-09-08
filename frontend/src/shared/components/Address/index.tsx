@@ -51,6 +51,23 @@ export const DateWrapper = styled.p`
   margin-inline-end: 0px;
 `;
 
+export const ReporterTitle = styled.p`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+
+  color: #B8B8BF;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+`;
+
 export const CategoryWrapper = styled.div`
   border: 1px solid rgba(184, 184, 191, 0.4);
   border-radius: 4px;
@@ -89,6 +106,9 @@ export default function Address(){
         <DateWrapper>
           {`Added: ${formatCaseDate(new Date())} UTC`}
         </DateWrapper>
+        <ReporterTitle>
+          Ihor Cashback
+        </ReporterTitle>
         <CategoryWrapper>
           <CategoryText>{CategoryMap[Category.ChildAbuse]}</CategoryText>
         </CategoryWrapper>

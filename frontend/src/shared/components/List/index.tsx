@@ -2,7 +2,9 @@ import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { ReactComponent as AddIcon } from 'assets/images/add-icon.svg';
 import { ReactComponent as DiagramArrow } from 'assets/images/diagram-arrow.svg';
+import { Primary } from 'pages/header';
 import {
   Case, CategoryMap,
 } from 'providers/interfaces';
@@ -142,6 +144,25 @@ export const DiagramLink = styled.p`
   margin-inline-end: 0px;
 `;
 
+export const Header = styled.div``;
+
+export const Button = styled(Primary)`
+  background-color: #B7DA44;
+  color: #131313;
+  :hover,:active {
+    opacity: 0.9;
+  }
+
+  :disabled{
+    cursor: default;
+    background: ${({ theme }) => theme.grayOp04};
+  }
+  >svg {
+    width: 22px;
+    margin-right: 5px;
+  }
+`;
+
 export const DiagramRow = styled(Row)`
   padding: 2px 6px;
   border-radius: 10px;
@@ -204,6 +225,7 @@ export default function List({ cases }:{ cases: { [key:string]: Case } }){
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [currentCases, setCurrentCases] = useState(Object.values(cases));
+
   function generateSkip(page: number): number {
     return (page - 1) * ITEMS_PER_PAGE;
   }
@@ -218,6 +240,12 @@ export default function List({ cases }:{ cases: { [key:string]: Case } }){
 
   return (
     <ListWrapper>
+      <Header>
+        <Button>
+          <AddIcon />
+          Create case
+        </Button>
+      </Header>
       <CasesWrapper>
         {currentCases.map((el) => <ListItem key={el.id} singleCase={el} />)}
       </CasesWrapper>

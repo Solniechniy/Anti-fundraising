@@ -9,6 +9,7 @@ import {
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
+import { CasePage } from 'pages/case-page';
 import { Header } from 'pages/header';
 import HomePage from 'pages/home-page';
 
@@ -53,6 +54,7 @@ export default function AppRoutes(): JSX.Element {
           <Header isOpened={isOpened}>
             <Routes>
               <Route path={APP_ROUTES.HOME} element={<HomePage />} />
+              <Route path={APP_ROUTES.CASE_BY_ID} element={<CasePage />} />
               <Route path={APP_ROUTES.DEFAULT} element={<Navigate replace to={APP_ROUTES.HOME} />} />
             </Routes>
           </Header>

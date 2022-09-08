@@ -110,7 +110,7 @@ export default class FungibleTokenContract {
 
   async checkStorageBalance({ accountId }: { accountId: string }): Promise<Action[]> {
     try {
-      if (this.contractId === NEAR_TOKEN_ID || this.contractId === config.usn) return [];
+      if (this.contractId === NEAR_TOKEN_ID) return [];
       const storageBalance = await this.getStorageBalance({ accountId });
       const storageBalanceBounds = await this.getStorageBalanceBounce();
       if (!storageBalance || Big(storageBalance.total).lt(storageBalanceBounds?.min || ZERO)) {

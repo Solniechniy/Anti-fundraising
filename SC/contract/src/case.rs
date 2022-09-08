@@ -1,5 +1,3 @@
-use near_sdk::collections::LazyOption;
-
 use crate::*;
 
 pub const NEAR_ACCOUNT: &str = "near";
@@ -18,7 +16,7 @@ pub struct CaseInput {
 pub struct CaseOutput {
     pub name: String,
     pub description: String,
-    pub date: u64,
+    pub date: U64,
     pub ipfs: String,
 }
 
@@ -32,7 +30,7 @@ pub enum VCase {
 pub struct Case {
     pub name: String,
     pub description: String,
-    pub date: u64,
+    pub date: Timestamp,
     pub ipfs: String,
     pub addresses: UnorderedMap<String, VAddress>,
 }
@@ -51,7 +49,7 @@ impl From<VCase> for CaseOutput {
             VCase::Current(case) => CaseOutput {
                 name: case.name,
                 description: case.description,
-                date: case.date,
+                date: case.date.into(),
                 ipfs: case.ipfs,
             },
         }
@@ -70,14 +68,36 @@ impl VCase {
     }
 }
 
+pub trait CaseManagment {
+    fn create_case(&mut self, case: CaseInput) -> u64;
+    fn update_case_link(&mut self, case_id: u64, ipfs_link: String);
+}
+
 #[near_bindgen]
-#[allow(dead_code)]
-impl Contract {
-    pub fn create_case(&mut self, case: CaseInput) -> u64 {
+impl CaseManagment for Contract {
+    fn create_case(&mut self, case: CaseInput) -> u64 {
         let case_id = self.cases.len();
 
         self.cases.insert(&case_id, &VCase::new(case_id, case));
 
         case_id
+    }
+
+    fn update_case_link(&mut self, case_id: u64, ipfs_link: String) {
+        assert!(
+            self.admins.contains(&env::predecessor_account_id()),
+            "ERR: you have not access"
+        );
+
+        let mut case: Case = self
+            .cases
+            .get(&case_id)
+            .expect("ERR: case not found")
+            .into();
+
+        case.ipfs = ipfs_link;
+        case.date = env::block_timestamp();
+
+        self.cases.insert(&case_id, &VCase::Current(case));
     }
 }

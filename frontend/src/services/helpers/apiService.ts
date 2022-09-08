@@ -9,12 +9,12 @@ const HEADERS = { 'Content-type': 'application/json; charset=UTF-8' };
 class ApiService {
   config = getConfig();
 
-  async getNftParasMetadata(
-    nftTokenContractId: string,
-    nftTokenId: string,
+  async setTrack(
+    chain: string,
+    address: string,
+    timestamp: string,
   ) {
-    const tokenSeriesId = nftTokenId.substring(0, nftTokenId.indexOf(':'));
-    const url = `${this.config.parasApiUrl}/token/${nftTokenContractId}::${tokenSeriesId}/${nftTokenId}`;
+    const url = `${this.config.api}/setTrack/${chain}/${address}/${timestamp}`;
     try {
       return await fetch(
         url,
@@ -23,8 +23,26 @@ class ApiService {
           headers: HEADERS,
         },
       )
-        .then((res) => res.json())
-        .then((details) => details.metadata);
+        .then((res) => res.json());
+    } catch (e) {
+      console.warn(`Error ${e} while loading metadata from paras server ${url}`);
+      return [];
+    }
+  }
+
+  async getTrack(
+    id: string,
+  ) {
+    const url = `${this.config.api}/getTrack/${id}`;
+    try {
+      return await fetch(
+        url,
+        {
+          method: RequestTypes.GET,
+          headers: HEADERS,
+        },
+      )
+        .then((res) => res.json());
     } catch (e) {
       console.warn(`Error ${e} while loading metadata from paras server ${url}`);
       return [];

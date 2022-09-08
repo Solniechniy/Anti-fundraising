@@ -12,7 +12,7 @@ const BackgroundLayout = styled.div`
   backdrop-filter: blur(24px);
 `;
 
-const Modal = styled.div<{ isCentered?: boolean, isFullWidth?: boolean, height?: string, }>`
+const Modal = styled.div<{ isCentered?: boolean, isFullWidth?: boolean, height?: string, color?: string }>`
   height: ${({ height }) => (height || 'auto')};
   overflow: auto;
   z-index: 200;
@@ -20,7 +20,7 @@ const Modal = styled.div<{ isCentered?: boolean, isFullWidth?: boolean, height?:
   display: flex;
   flex-direction: column;
   min-width: ${({ isFullWidth }) => (isFullWidth ? '100%' : '20.5rem')};
-  background: #28282F;
+  background: ${({ color }) => color || '#28282F'};
   color: #E5E5E5;
   box-shadow: 0px 4px 8px -4px ${({ theme }) => theme.boxShadowCard};
   border-radius: 1rem;

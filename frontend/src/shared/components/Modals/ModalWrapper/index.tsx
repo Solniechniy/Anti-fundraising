@@ -6,10 +6,11 @@ interface IModalWrapper {
   isCentered?: boolean,
   isFullWidth?: boolean,
   height?: string,
+  color?: string,
 }
 
 export default function ModalWrapper({
-  children, closeModal, isCentered, isFullWidth, height,
+  children, closeModal, isCentered, isFullWidth, height, color,
 }: IModalWrapper): JSX.Element{
   return (
     <>
@@ -18,6 +19,7 @@ export default function ModalWrapper({
         isCentered={isCentered}
         isFullWidth={isFullWidth}
         height={height}
+        color={color}
       >
         {children}
       </styles.Modal>

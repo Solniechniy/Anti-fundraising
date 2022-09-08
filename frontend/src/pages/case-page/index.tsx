@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ReactComponent as AddIcon } from 'assets/images/add-icon.svg';
+import { ReactComponent as BackIcon } from 'assets/images/back.svg';
+import { Primary } from 'pages/header';
 import { useData } from 'providers/DataProvider';
 import { Case, IAddress } from 'providers/interfaces';
+import { APP_ROUTES } from 'routes/constant';
 import Address from 'shared/components/Address';
 import { ListItem } from 'shared/components/List';
+import { EModals } from 'shared/providers/interfaces';
+import { useModalStore } from 'shared/providers/ModalProvider';
 
 export const CaseWrapper = styled.div`
   padding: 24px;
@@ -18,9 +24,43 @@ export const CaseWrapper = styled.div`
   flex-direction: column;
 `;
 
+export const Button = styled(Primary)`
+  background-color: #B7DA44;
+  color: #131313;
+  :hover {
+    opacity: 0.9;
+  }
+
+  :disabled{
+    cursor: default;
+    background: ${({ theme }) => theme.grayOp04};
+  }
+  >svg {
+    width: 22px;
+    margin-right: 5px;
+  }
+`;
+
+const Back = styled.div`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+  color: #B8B8BF;
+  cursor: pointer;
+  width: 680px;
+  align-self: center;
+  margin-bottom: 26px;
+  & >svg {
+    margin-right: 7px;
+  }
+`;
+
 export function CasePage() {
+  const { showModal } = useModalStore();
   const [singleCase, setSingleCase] = useState<Case | null>(null);
 
+  const navigate = useNavigate();
   const { id } = useParams();
   const { cases, addresses } = useData();
 
@@ -34,16 +74,34 @@ export function CasePage() {
   const addressesArray: IAddress[] = addresses[Number(id)] || [];
 
   return (
-    <CaseWrapper>
-      <ListItem singleCase={singleCase} isStatic />
-      <div>
-        {addressesArray.map((address, index) => (
-          <Address
-            key={`${index + 1}: ${address.date}`}
-            address={address}
-          />
-        ))}
-      </div>
-    </CaseWrapper>
+    <>
+      <Back onClick={() => navigate(APP_ROUTES.HOME)}>
+        <BackIcon />
+        Back
+      </Back>
+      <CaseWrapper>
+        <Button
+          onClick={() => showModal(
+            EModals.CREATE_ADDRESS_MODAL,
+            {
+              caseId: Number(singleCase.id),
+            },
+          )}
+        >
+          <AddIcon />
+          Create address
+        </Button>
+        <ListItem singleCase={singleCase} isStatic />
+        <div>
+          {addressesArray.map((address, index) => (
+            <Address
+              key={`${index + 1}: ${address.date}`}
+              address={address}
+            />
+          ))}
+        </div>
+      </CaseWrapper>
+
+    </>
   );
 }

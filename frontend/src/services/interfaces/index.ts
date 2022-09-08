@@ -18,6 +18,8 @@ export interface Action {
 
       registration_only?: boolean,
       amount?: string
+
+      case_id?: number,
       address?: {
         chain?: string,
         address?: string,

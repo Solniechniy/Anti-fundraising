@@ -4,11 +4,13 @@ interface IInputContainer {
   value: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
+  name: string;
 }
 export default function InputContainer({
   value,
   handleChange,
   title,
+  name,
 }:IInputContainer) {
   return (
     <styles.Container>
@@ -18,7 +20,7 @@ export default function InputContainer({
       <styles.StyledInput
         value={value}
         onChange={handleChange}
-        name="caseName"
+        name={name}
         autoComplete="off"
       />
     </styles.Container>

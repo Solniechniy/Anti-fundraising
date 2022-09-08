@@ -10,6 +10,8 @@ import {
   Case, CategoryMap,
 } from 'providers/interfaces';
 import { ITEMS_PER_PAGE } from 'shared/constant';
+import { EModals } from 'shared/providers/interfaces';
+import { useModalStore } from 'shared/providers/ModalProvider';
 
 import Pagination from '../Pagination';
 
@@ -232,6 +234,7 @@ export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, i
 }
 
 export default function List({ cases }:{ cases: { [key:string]: Case } }){
+  const { showModal } = useModalStore();
   const [skip, setSkip] = useState<number>();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -252,7 +255,7 @@ export default function List({ cases }:{ cases: { [key:string]: Case } }){
   return (
     <ListWrapper>
       <Header>
-        <Button>
+        <Button onClick={() => showModal(EModals.CREATE_CASE_MODAL, {})}>
           <AddIcon />
           Create case
         </Button>

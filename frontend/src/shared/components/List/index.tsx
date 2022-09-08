@@ -150,7 +150,7 @@ export const DiagramRow = styled(Row)`
   }
 `;
 
-const formatCaseDate = (date: Date) => {
+export const formatCaseDate = (date: Date) => {
   try {
     return format(date, 'yyyy-mm-dd, hh:mm:ss');
   } catch (e){

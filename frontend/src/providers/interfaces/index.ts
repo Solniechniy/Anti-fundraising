@@ -20,10 +20,10 @@ export const StatusMap = {
 };
 
 export enum Chain {
-  'BNB' = 1,
-  'NEAR',
-  'Ethereum',
-  'Bitcoin',
+  BNB = 1,
+  NEAR,
+  Ethereum,
+  Bitcoin,
 }
 
 export enum Category {

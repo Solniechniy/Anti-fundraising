@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const PaginationStyled = styled.div`
   display: flex;
-  margin-top: 3rem;
   padding-left: 1.5rem;
   align-items: flex-end;
   justify-content: center;

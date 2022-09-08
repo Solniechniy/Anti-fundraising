@@ -7,7 +7,6 @@ import {
 } from 'react';
 
 import getConfig from 'services/config';
-import { FungibleTokenContract } from 'services/contracts';
 import { createNearTransaction } from 'services/helpers';
 import { Action } from 'services/interfaces';
 import { useModalStore } from 'shared/providers/ModalProvider';

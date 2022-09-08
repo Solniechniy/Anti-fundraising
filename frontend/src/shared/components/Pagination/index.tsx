@@ -1,11 +1,12 @@
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
 
+import { ITEMS_PER_PAGE } from 'shared/constant';
+
 import { ReactComponent as Arrow } from '../../../assets/images/arrow.svg';
 import { PaginationProps } from './interface';
 import { PaginationStyled } from './styles';
 
-const ITEMS_PER_PAGE = 100;
 export enum KeyboardButton {
   ENTER_BUTTON = 'Enter',
 }

@@ -1,1 +1,1 @@
-Bocachica Auction Frontend Repository
+Anti-fundraising Frontend Repository

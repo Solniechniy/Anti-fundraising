@@ -2,6 +2,14 @@ use crate::*;
 
 pub const NEAR_ACCOUNT: &str = "near";
 
+#[derive(BorshSerialize, BorshDeserialize, Serialize, Deserialize, PartialEq, Debug)]
+#[serde(crate = "near_sdk::serde")]
+pub enum Status {
+    Pending,
+    Accepted,
+    Rejected,
+}
+
 /// Account deposits for the a auction.
 #[derive(BorshSerialize, BorshDeserialize)]
 pub enum VAddress {
@@ -16,6 +24,7 @@ pub struct Address {
     pub reporter: AccountId,
     pub address: String,
     pub ipfs: String,
+    pub status: Status,
 }
 
 impl From<VAddress> for Address {
@@ -43,6 +52,7 @@ pub struct AddressOutput {
     pub reporter: AccountId,
     pub address: String,
     pub ipfs: String,
+    pub status: Status,
 }
 
 impl From<VAddress> for AddressOutput {
@@ -54,19 +64,21 @@ impl From<VAddress> for AddressOutput {
                 reporter: address.reporter,
                 address: address.address,
                 ipfs: address.ipfs,
+                status: address.status,
             },
         }
     }
 }
 
 impl VAddress {
-    pub fn new(address_id: u64, address_input: AddressInput) -> Self {
+    pub fn new(address_input: AddressInput) -> Self {
         Self::Current(Address {
             chain: address_input.chain,
             reporter: env::predecessor_account_id(),
             date: env::block_timestamp(),
             ipfs: address_input.ipfs,
             address: address_input.address,
+            status: Status::Pending,
         })
     }
 }
@@ -78,7 +90,6 @@ impl Contract {
         let mut case: Case = self.cases.get(&case_id).expect("ERR: no such case").into();
         let address_id = format!("{}{}", address.chain, address.address);
 
-        case.addresses
-            .insert(&address_id, &VAddress::new(case_id, address));
+        case.addresses.insert(&address_id, &VAddress::new(address));
     }
 }

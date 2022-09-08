@@ -16,7 +16,7 @@ export const StatusMap = {
   [Status.Approved]: 'Approved',
   [Status.Pending]: 'Pending',
   [Status.Rejected]: 'Rejected',
-  [Status.Approved]: 'Approved',
+  [Status.Loaded]: 'Loaded',
 };
 
 export enum Chain {

@@ -8,7 +8,7 @@ import { isNotNullOrUndefined } from 'shared/utils';
 import { useCaseService } from './CaseContractServiceProvider';
 import assertFulfilled from './helpers';
 import {
-  Case, Address, DataContextType, CategoryMap,
+  Case, IAddress, DataContextType, CategoryMap,
 } from './interfaces';
 import { useWalletData } from './NearWalletProvider';
 
@@ -61,7 +61,7 @@ export function DataProvider({ children }:{ children: JSX.Element }) {
   const [loading, setLoading] = useState<boolean>(initialDataState.loading);
 
   const [cases, setCases] = useState<{ [key: string]: Case }>(initialDataState.cases);
-  const [addresses, setAddresses] = useState<{ [key:string]: Address }>(initialDataState.addresses);
+  const [addresses, setAddresses] = useState<{ [key:string]: IAddress }>(initialDataState.addresses);
 
   useEffect(() => {
     const initialLoading = async () => {

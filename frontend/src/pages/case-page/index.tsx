@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useData } from 'providers/DataProvider';
@@ -18,16 +19,29 @@ export const CaseWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export function CasePage(){
-  // const [case, setCase] = useState<Case | null>(null);
+export function CasePage() {
+  const [singleCase, setSingleCase] = useState<Case | null>(null);
 
-  const { cases } = useData();
-  if (Object.keys(cases).length === 0) return <h1>No Cases</h1>;
+  const { id } = useParams();
+  const { cases, addresses } = useData();
 
+  useEffect(() => {
+    if (id && cases[id] && (!singleCase || singleCase !== cases[id])) {
+      setSingleCase(cases[id]);
+    }
+  }, [id, cases, singleCase]);
+
+  if (Object.keys(cases).length === 0 || !singleCase) return <h1>No Cases</h1>;
+  const addressesArray = Object.values(addresses);
   return (
     <CaseWrapper>
-      <ListItem singleCase={cases[0]} isStatic />
-      <Address />
+      <ListItem singleCase={singleCase} isStatic />
+      {addressesArray.map((address, index) => (
+        <Address
+          key={`${index + 1}: ${address.date}`}
+          address={address}
+        />
+      ))}
     </CaseWrapper>
   );
 }

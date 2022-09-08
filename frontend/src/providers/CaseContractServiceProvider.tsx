@@ -13,7 +13,7 @@ export type CaseServiceContextType = {
     description: string,
     ipfs: string,
     category: string) => Promise<void>;
-  createAddress: (chain: string, ipfs: string) => Promise<void>;
+  createAddress: (chain: string, ipfs: string, address: string, caseId: number) => Promise<void>;
 };
 
 const config = getConfig();
@@ -45,7 +45,7 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
     description: string,
     ipfs: string,
     category: string,
-  ) => {
+  ): Promise<void> => {
     if (!caseContract) return;
     const transaction = caseContract.createCaseAction({
       title, description, ipfs, category,
@@ -53,9 +53,16 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
     await sendTransaction(transaction);
   }, [caseContract, sendTransaction]);
 
-  const createAddress = useCallback(async (chain: string, ipfs: string) => {
+  const createAddress = useCallback(async (
+    chain: string,
+    ipfs: string,
+    address: string,
+    caseId: number,
+  ): Promise<void> => {
     if (!caseContract) return;
-    const transaction = caseContract.createAddressAction({ chain, ipfs });
+    const transaction = caseContract.createAddressAction({
+      chain, ipfs, address, caseId,
+    });
     await sendTransaction(transaction);
   }, [caseContract, sendTransaction]);
 

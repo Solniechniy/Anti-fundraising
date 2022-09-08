@@ -61,7 +61,7 @@ export function DataProvider({ children }:{ children: JSX.Element }) {
   const [loading, setLoading] = useState<boolean>(initialDataState.loading);
 
   const [cases, setCases] = useState<{ [key: string]: Case }>(initialDataState.cases);
-  const [addresses, setAddresses] = useState<{ [key:string]: IAddress }>(initialDataState.addresses);
+  const [addresses, setAddresses] = useState<{ [key:string]: IAddress[] }>(initialDataState.addresses);
 
   useEffect(() => {
     const initialLoading = async () => {

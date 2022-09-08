@@ -54,7 +54,6 @@ export const HeaderComponent = styled.div`
   font-weight: 600;
   font-size: .75rem;
   line-height: .938rem;
-  margin-top: 2.5rem;
   margin-bottom: 1.75rem;
   ${({ theme }) => theme.mediaWidth.upToSmall`
     min-width: auto;
@@ -64,7 +63,20 @@ export const HeaderComponent = styled.div`
     justify-content: space-between;
   `}
 `;
-export const HeaderLogo = styled.p``;
+
+export const HeaderLogo = styled.p`
+  font-style: normal;
+  font-weight: 800;
+  font-size: 26.3818px;
+  line-height: 32px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
+  font-feature-settings: 'salt' on, 'ss01' on, 'ss03' on;
+
+  color: #FFFFFF;
+`;
 export const HeaderRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -92,7 +104,7 @@ export function Header({ children }: { children: any }){
     <HeaderComponent>
       <HeaderRow>
         <HeaderLogo>
-          LOGO
+          Contraise
         </HeaderLogo>
         <Button
           onClick={buttonAction}

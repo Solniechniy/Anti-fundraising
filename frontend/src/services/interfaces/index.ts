@@ -15,14 +15,22 @@ export interface Action {
     args?: {
       account_id?: string,
       receiver_id?: string,
-      title?: string,
-      description?: string,
-      ipfs?: string,
-      category?: string,
-      chain?: string,
-      address?: string,
+
       registration_only?: boolean,
       amount?: string
+
+      case_id?: number,
+      address?: {
+        chain?: string,
+        address?: string,
+        ipfs?: string,
+      }
+      case?: {
+        title?: string,
+        description?: string,
+        ipfs?: string,
+        category?: string,
+      }
     };
   }[];
 }

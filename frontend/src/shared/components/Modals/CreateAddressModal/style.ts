@@ -32,25 +32,6 @@ const Body = styled.div`
   flex-direction: column;
 `;
 
-const CancelBtn = styled.button`
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 20px;
-  color: #B8B8BF;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0 .5rem;
-  border: 1px solid #B8B8BF;
-  border-radius: 8px;
-  background-color: transparent;
-  min-width: 80px;
-`;
-
 const SaveCaseBtn = styled.button`
   font-weight: 700;
   font-size: 14px;
@@ -79,10 +60,6 @@ const Footer = styled.div`
     width: 100%;
     height: 40px;
   }
-
-  & > button:first-child {
-    margin-right: .75rem;
-  }
 `;
 
 export default {
@@ -90,7 +67,6 @@ export default {
   Close,
   Body,
   Footer,
-  CancelBtn,
   CloseIcon,
   SaveCaseBtn,
 };

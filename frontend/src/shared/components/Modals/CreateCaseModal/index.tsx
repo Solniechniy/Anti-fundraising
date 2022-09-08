@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
+import { useCaseService } from 'providers/CaseContractServiceProvider';
 import { Category } from 'providers/interfaces';
+import { useWalletData } from 'providers/NearWalletProvider';
 import ModalWrapper from 'shared/components/Modals/ModalWrapper';
 
 import InputContainer from '../InputContainer';
@@ -27,9 +29,11 @@ export interface IValues {
 export default function CreateCaseModal({
   closeModal,
 }: ICreateCaseModal): JSX.Element | null {
+  const { isSignedIn } = useWalletData();
+  const { createCase } = useCaseService();
   const [form, setForm] = useState<IValues>(initialFormValue);
   const categoryArray = Object.keys(Category);
-
+  const canSubmit = isSignedIn && form.caseName && form.category !== Category.None;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const nextFormState = {
       ...form,
@@ -38,6 +42,14 @@ export default function CreateCaseModal({
     setForm(nextFormState);
   };
 
+  const handleClick = async () => {
+    await createCase(
+      form.caseName,
+      form.description,
+      '', // todo ipfs,
+      form.category,
+    );
+  };
   return (
     <ModalWrapper closeModal={closeModal} isCentered>
       <styles.Header>
@@ -65,10 +77,13 @@ export default function CreateCaseModal({
         />
       </styles.Body>
       <styles.Footer>
-        <styles.CancelBtn>
+        <styles.CancelBtn onClick={closeModal}>
           Cancel
         </styles.CancelBtn>
-        <styles.SaveCaseBtn>
+        <styles.SaveCaseBtn
+          disabled={!canSubmit}
+          onClick={handleClick}
+        >
           Save Case
         </styles.SaveCaseBtn>
       </styles.Footer>

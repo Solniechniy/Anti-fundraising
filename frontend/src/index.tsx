@@ -15,15 +15,15 @@ import './index.css';
 export default function AppWrapper() {
   return (
     <ThemeProvider theme={theme}>
-      <ModalProvider>
-        <WalletProvider>
-          <CaseContractServiceProvider>
-            <DataProvider>
+      <WalletProvider>
+        <CaseContractServiceProvider>
+          <DataProvider>
+            <ModalProvider>
               <AppRoutes />
-            </DataProvider>
-          </CaseContractServiceProvider>
-        </WalletProvider>
-      </ModalProvider>
+            </ModalProvider>
+          </DataProvider>
+        </CaseContractServiceProvider>
+      </WalletProvider>
     </ThemeProvider>
   );
 }

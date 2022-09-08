@@ -19,6 +19,7 @@ export default function InputContainer({
         value={value}
         onChange={handleChange}
         name="caseName"
+        autoComplete="off"
       />
     </styles.Container>
   );

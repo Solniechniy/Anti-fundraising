@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 
 import { FungibleTokenContract } from 'services/contracts';
-import { ZERO, MICRO_SECOND, NEAR_TOKEN_ID } from 'shared/constant';
+import { MICRO_SECOND } from 'shared/constant';
 import { parseTokenAmount } from 'shared/utils';
 
 dayjs.extend(duration);

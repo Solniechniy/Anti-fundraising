@@ -21,27 +21,16 @@ const Primary = styled.button<{ isActive?: boolean }>`
   max-height: 48px;
   min-height: 36px;
   color: ${({ theme, isActive }) => (isActive ? theme.pink : theme.white)};
-  background-color: ${({ theme, isActive }) => (isActive ? theme.lightPink : theme.pink)};
 
-  :hover {
-    background-color: ${({ theme, isActive }) => (isActive ? theme.lightPinkHover : theme.pinkHover)};
-  }
-  :active {
-    background-color: ${({ theme, isActive }) => (isActive ? theme.lightPinkActive : theme.pinkActive)};
-  }
-  :disabled{
-    cursor: default;
-    background-color: ${({ theme }) => theme.grayOp04};
-  }
 `;
 
 const ConnectedButton = styled(Primary)<{ isSignedIn?: boolean }>`
-  background-color: ${({ theme, isSignedIn }) => (isSignedIn ? theme.darkPink : theme.pink)};
+  background-color: ${({ theme, isSignedIn }) => (isSignedIn ? '#B7DA4433' : theme.pink)};
   :hover {
-    background-color: ${({ theme, isSignedIn }) => (isSignedIn ? theme.darkPinkHv : theme.pinkHover)};
+    opacity: ${({ isSignedIn }) => (isSignedIn ? 0.2 : 0.3)};
   }
   :active {
-    background-color: ${({ theme, isSignedIn }) => (isSignedIn ? theme.darkPinkActive : theme.pinkActive)};
+    opacity: ${({ isSignedIn }) => (isSignedIn ? 0.2 : 0.3)};
   }
   :disabled{
     cursor: default;

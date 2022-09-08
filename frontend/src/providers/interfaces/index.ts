@@ -9,14 +9,14 @@ import { ReactComponent as EthereumIcon } from 'assets/images/ethereum.svg';
 import { Action } from 'services/interfaces';
 
 export enum Status {
-  'Loaded' = 1,
-  'Pending',
-  'Rejected',
-  'Approved',
+  Loaded = 'Loaded',
+  Pending = 'Pending',
+  Rejected = 'Rejected',
+  Accepted = 'Accepted',
 }
 
 export const StatusMap = {
-  [Status.Approved]: 'Approved',
+  [Status.Accepted]: 'Accepted',
   [Status.Pending]: 'Pending',
   [Status.Rejected]: 'Rejected',
   [Status.Loaded]: 'Loaded',
@@ -25,21 +25,21 @@ export const StatusMap = {
 export enum Chain {
   BNB = 'BNB',
   NEAR = 'NEAR',
-  Ethereum = 'Ethereum',
+  ETH = 'ETH',
   Bitcoin = 'Bitcoin',
 }
 
 export const ChainMap = {
   [Chain.BNB]: 'BNB',
   [Chain.NEAR]: 'NEAR',
-  [Chain.Ethereum]: 'Ethereum',
+  [Chain.ETH]: 'ETH',
   [Chain.Bitcoin]: 'Bitcoin',
 };
 
 export const ChainMapIcon = {
   [Chain.BNB]: BinanceIcon,
   [Chain.NEAR]: BinanceIcon,
-  [Chain.Ethereum]: EthereumIcon,
+  [Chain.ETH]: EthereumIcon,
   [Chain.Bitcoin]: BitcoinIcon,
 };
 
@@ -47,7 +47,7 @@ export function getChainIcon(chain: Chain){
   switch (chain){
     case Chain.BNB: return BinanceIcon;
     case Chain.NEAR: return BinanceIcon;
-    case Chain.Ethereum: return EthereumIcon;
+    case Chain.ETH: return EthereumIcon;
     case Chain.Bitcoin: return BitcoinIcon;
     default: return BinanceIcon;
   }
@@ -116,6 +116,7 @@ export interface IAddress {
   reporter: string;
   address: string;
   chain: Chain;
+  ipfs?: string;
 }
 
 export interface DataContextType {

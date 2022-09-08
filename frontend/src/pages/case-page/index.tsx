@@ -16,7 +16,6 @@ export const CaseWrapper = styled.div`
   border-radius: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 `;
 
 export function CasePage() {
@@ -37,12 +36,14 @@ export function CasePage() {
   return (
     <CaseWrapper>
       <ListItem singleCase={singleCase} isStatic />
-      {addressesArray.map((address, index) => (
-        <Address
-          key={`${index + 1}: ${address.date}`}
-          address={address}
-        />
-      ))}
+      <div>
+        {addressesArray.map((address, index) => (
+          <Address
+            key={`${index + 1}: ${address.date}`}
+            address={address}
+          />
+        ))}
+      </div>
     </CaseWrapper>
   );
 }

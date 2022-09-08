@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ReactComponent as AddIcon } from 'assets/images/add-icon.svg';
-import { ReactComponent as DiagramArrow } from 'assets/images/diagram-arrow.svg';
 import { Primary } from 'pages/header';
 import {
   Case, CategoryMap,
@@ -133,22 +132,6 @@ export const CasesWrapper = styled.div`
   flex: 1;
 `;
 
-export const DiagramLink = styled.p`
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 140%;
-
-  display: flex;
-  align-items: center;
-  color: #B8B8BF;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-`;
-
 export const Header = styled.div`
   display: flex;
   width: 100%;
@@ -169,14 +152,6 @@ export const Button = styled(Primary)`
   >svg {
     width: 22px;
     margin-right: 5px;
-  }
-`;
-
-export const DiagramRow = styled(Row)`
-  padding: 2px 6px;
-  border-radius: 10px;
-  :hover{
-    background-color: #B8B8BF1A;
   }
 `;
 
@@ -214,15 +189,6 @@ export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, i
         </Row>
       </Column>
       <Column>
-        <Row justify="flex-end">
-          <DiagramRow>
-            <DiagramLink>
-              Show Diagram
-              {' '}
-            </DiagramLink>
-            <DiagramArrow />
-          </DiagramRow>
-        </Row>
         <Row>
           <DateWrapper>
             {`Updated: ${formatCaseDate(singleCase.date)} UTC`}

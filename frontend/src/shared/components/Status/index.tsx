@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import {
-  Case, Status, StatusMap,
+  Status, StatusMap,
 } from 'providers/interfaces';
 
 import { ReactComponent as Circle } from '../../../assets/images/circle.svg';
@@ -9,7 +9,7 @@ import { ReactComponent as Circle } from '../../../assets/images/circle.svg';
 export const StatusWrapper = styled.div<{ statusEnum: Status }>`
   background-color: ${({ statusEnum }) => {
     switch (statusEnum){
-      case Status.Approved: return 'rgba(143, 217, 88, 0.2)';
+      case Status.Accepted: return 'rgba(143, 217, 88, 0.2)';
       case Status.Loaded: return 'rgba(237, 187, 82, 0.2)';
       case Status.Pending: return 'rgba(184, 184, 191, 0.1)';
       case Status.Rejected: return 'rgba(255, 95, 96, 0.2)';
@@ -18,7 +18,7 @@ export const StatusWrapper = styled.div<{ statusEnum: Status }>`
   }};
   color: ${({ statusEnum }) => {
     switch (statusEnum){
-      case Status.Approved: return 'rgba(143, 217, 88)';
+      case Status.Accepted: return 'rgba(143, 217, 88)';
       case Status.Loaded: return 'rgba(237, 187, 82)';
       case Status.Pending: return '#B8B8BF';
       case Status.Rejected: return 'rgba(255, 95, 96)';
@@ -46,7 +46,7 @@ export const CircleElement = styled(Circle)<{ statusEnum: Status }>`
   >circle {
     stroke: ${({ statusEnum }) => {
     switch (statusEnum){
-      case Status.Approved: return 'rgba(143, 217, 88)';
+      case Status.Accepted: return 'rgba(143, 217, 88)';
       case Status.Loaded: return 'rgba(237, 187, 82)';
       case Status.Pending: return '#B8B8BF';
       case Status.Rejected: return 'rgba(255, 95, 96)';
@@ -56,11 +56,11 @@ export const CircleElement = styled(Circle)<{ statusEnum: Status }>`
   }
 `;
 
-export function StatusComponent({ singleCase }:{ singleCase: Case }){
+export function StatusComponent({ status }:{ status: Status }){
   return (
-    <StatusWrapper statusEnum={singleCase.status}>
-      <CircleElement statusEnum={singleCase.status} />
-      {StatusMap[singleCase.status]}
+    <StatusWrapper statusEnum={status}>
+      <CircleElement statusEnum={status} />
+      {StatusMap[status]}
     </StatusWrapper>
   );
 }

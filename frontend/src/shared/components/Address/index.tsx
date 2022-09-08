@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import {
+  Category,
   CategoryMap, Chain, ChainMap, getChainIcon,
 } from 'providers/interfaces';
 
@@ -34,6 +35,23 @@ const AdditionalInfo = styled.div`
 `;
 
 export const DateWrapper = styled.p`
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 140%;
+
+  display: flex;
+  align-items: center;
+
+  color: #B8B8BF;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+`;
+
+export const ReporterTitle = styled.p`
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -88,8 +106,11 @@ export default function Address(){
         <DateWrapper>
           {`Added: ${formatCaseDate(new Date())} UTC`}
         </DateWrapper>
+        <ReporterTitle>
+          Ihor Cashback
+        </ReporterTitle>
         <CategoryWrapper>
-          <CategoryText>{CategoryMap[1]}</CategoryText>
+          <CategoryText>{CategoryMap[Category.ChildAbuse]}</CategoryText>
         </CategoryWrapper>
         <CategoryWrapper>
           <Image />

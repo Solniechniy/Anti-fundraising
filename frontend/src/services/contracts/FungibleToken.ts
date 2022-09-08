@@ -1,8 +1,8 @@
-import nearIcon from 'assets/images/icons/near-icon.svg';
-import wNearIcon from 'assets/images/icons/wnear-icon.svg';
 import Big from 'big.js';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
 
+import nearIcon from 'assets/icons/near-icon.svg';
+import wNearIcon from 'assets/icons/wnear-icon.svg';
 import getConfig from 'services/config';
 import { createContract } from 'services/helpers';
 import {

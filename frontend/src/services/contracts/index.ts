@@ -1,2 +1,2 @@
-export { default as AuctionContract } from './AuctionContract';
+export { default as CaseContract } from './CaseContract';
 export { default as FungibleTokenContract } from './FungibleToken';

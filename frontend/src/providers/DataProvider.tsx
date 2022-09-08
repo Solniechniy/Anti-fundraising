@@ -2,6 +2,7 @@ import {
   createContext, useContext, useState, useEffect, useMemo, useCallback,
 } from 'react';
 
+import { useCaseService } from './CaseContractServiceProvider';
 import { Case, Address, DataContextType } from './interfaces';
 import { useWalletData } from './NearWalletProvider';
 
@@ -17,7 +18,7 @@ const DataContextHOC = createContext<DataContextType>(initialDataState);
 
 export function DataProvider({ children }:{ children: JSX.Element }) {
   const { isSignedIn, accountId, wallet } = useWalletData();
-  // const { auctionContract } = useAuctionService();
+  const { caseContract } = useCaseService();
 
   const [loading, setLoading] = useState<boolean>(initialDataState.loading);
 
@@ -27,8 +28,8 @@ export function DataProvider({ children }:{ children: JSX.Element }) {
   useEffect(() => {
     const initialLoading = async () => {
       try {
-        // if (!wallet || !auctionContract) return;
-        // setLoading(true);
+        if (!wallet || !caseContract) return;
+        setLoading(true);
         // const {
         //   metadataMap,
         //   balancesMap,

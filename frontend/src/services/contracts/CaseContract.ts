@@ -1,10 +1,12 @@
 import { Contract, Near, WalletConnection } from 'near-api-js';
 
 import {
+  Action,
   NativeContract,
 } from 'services/interfaces';
+import { ZERO } from 'shared/constant';
 
-import { auctionChangeMethods, auctionViewMethods } from './contractMethods';
+import { caseChangeMethods, caseViewMethods } from './contractMethods';
 
 export default class CaseContract {
   readonly contractId: string;
@@ -27,7 +29,7 @@ export default class CaseContract {
     const contract = new Contract(
       account,
       accountId,
-      { viewMethods: auctionViewMethods, changeMethods: auctionChangeMethods },
+      { viewMethods: caseViewMethods, changeMethods: caseChangeMethods },
     );
     return contract;
   }
@@ -51,5 +53,55 @@ export default class CaseContract {
   async getNumberOfCases() {
     const contract = await this.initializeContract(this.contractId);
     return contract.get_num_cases?.();
+  }
+
+  createCaseAction({
+    title,
+    description,
+    ipfs,
+    category,
+  }:{
+    title: string,
+    description: string,
+    ipfs: string,
+    category: string,
+  }): Action[] {
+    return [
+      {
+        receiverId: this.contractId,
+        functionCalls: [{
+          methodName: 'create_case',
+          args: {
+            title,
+            description,
+            ipfs,
+            category,
+          },
+          amount: ZERO,
+        }],
+      },
+    ];
+  }
+
+  createAddressAction({
+    chain,
+    ipfs,
+  }:{
+    chain: string,
+    ipfs: string,
+  }): Action[] {
+    return [
+      {
+        receiverId: this.contractId,
+        functionCalls: [{
+          methodName: 'create_address',
+          args: {
+            chain,
+            ipfs,
+          },
+          amount: ZERO,
+        }],
+      },
+    ];
   }
 }

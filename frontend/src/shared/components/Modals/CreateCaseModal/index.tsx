@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
+import { Category } from 'providers/interfaces';
 import ModalWrapper from 'shared/components/Modals/ModalWrapper';
 
+import InputContainer from '../InputContainer';
+import Select from '../InputContainer/Select';
+import TextArea from '../InputContainer/TextArea';
 import styles from './styles';
 
 export interface ICreateCaseModal {
@@ -10,14 +14,30 @@ export interface ICreateCaseModal {
 
 const initialFormValue = {
   caseName: '',
-  category: '',
+  category: Category.None,
   description: '',
 };
+
+export interface IValues {
+  caseName: string,
+  category: Category,
+  description: string,
+}
 
 export default function CreateCaseModal({
   closeModal,
 }: ICreateCaseModal): JSX.Element | null {
-  const [values, setValues] = useState<any>(initialFormValue);
+  const [form, setForm] = useState<IValues>(initialFormValue);
+  const categoryArray = Object.keys(Category);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const nextFormState = {
+      ...form,
+      [e.target.name]: e.target.value,
+    };
+    setForm(nextFormState);
+  };
+
   return (
     <ModalWrapper closeModal={closeModal} isCentered>
       <styles.Header>
@@ -27,7 +47,22 @@ export default function CreateCaseModal({
         </styles.Close>
       </styles.Header>
       <styles.Body>
-        asv
+        <InputContainer
+          value={form.caseName}
+          handleChange={handleChange}
+          title="Case Name"
+        />
+        <Select
+          category={categoryArray}
+          title="Category"
+          handleChange={handleChange}
+        />
+        <TextArea
+          value={form.description}
+          handleChange={handleChange}
+          title="Description"
+          subTitle="(Option)"
+        />
       </styles.Body>
       <styles.Footer>
         <styles.CancelBtn>

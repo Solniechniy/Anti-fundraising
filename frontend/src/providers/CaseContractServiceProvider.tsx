@@ -1,5 +1,5 @@
 import {
-  createContext, useContext, useEffect, useMemo, useState,
+  createContext, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
 
 import getConfig from 'services/config';
@@ -9,6 +9,11 @@ import { useWalletData } from './NearWalletProvider';
 
 export type CaseServiceContextType = {
   caseContract?: CaseContract,
+  createCase: (title: string,
+    description: string,
+    ipfs: string,
+    category: string) => Promise<void>;
+  createAddress: (chain: string, ipfs: string) => Promise<void>;
 };
 
 const config = getConfig();
@@ -19,7 +24,7 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
   const [caseContract, setCaseContract] = useState<CaseContract | undefined>();
 
   const {
-    wallet, near, accountId,
+    wallet, near, accountId, sendTransaction,
   } = useWalletData();
 
   useEffect(() => {
@@ -35,9 +40,30 @@ export function CaseContractServiceProvider({ children }:{ children: JSX.Element
     createInstance();
   }, [accountId, near, wallet]);
 
+  const createCase = useCallback(async (
+    title: string,
+    description: string,
+    ipfs: string,
+    category: string,
+  ) => {
+    if (!caseContract) return;
+    const transaction = caseContract.createCaseAction({
+      title, description, ipfs, category,
+    });
+    await sendTransaction(transaction);
+  }, [caseContract, sendTransaction]);
+
+  const createAddress = useCallback(async (chain: string, ipfs: string) => {
+    if (!caseContract) return;
+    const transaction = caseContract.createAddressAction({ chain, ipfs });
+    await sendTransaction(transaction);
+  }, [caseContract, sendTransaction]);
+
   const caseServiceData = useMemo(() => ({
     caseContract,
-  }), [caseContract]);
+    createCase,
+    createAddress,
+  }), [caseContract, createAddress, createCase]);
 
   return (
     <CaseServiceContextHOC.Provider value={caseServiceData}>

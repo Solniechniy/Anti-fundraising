@@ -28,7 +28,8 @@ const Close = styled.div`
 `;
 
 const Body = styled.div`
-
+  display: flex;
+  flex-direction: column;
 `;
 
 const CancelBtn = styled.button`

@@ -23,10 +23,10 @@ export const StatusMap = {
 };
 
 export enum Chain {
-  BNB = 0,
-  NEAR,
-  Ethereum,
-  Bitcoin,
+  BNB = 'BNB',
+  NEAR = 'NEAR',
+  Ethereum = 'Ethereum',
+  Bitcoin = 'Bitcoin',
 }
 
 export const ChainMap = {
@@ -122,8 +122,8 @@ export interface DataContextType {
   loading: boolean,
   cases: { [key: string]: Case },
   setCases: Dispatch<SetStateAction<{ [key: string]: Case }>>,
-  addresses: { [key: string]: IAddress },
-  setAddresses: Dispatch<SetStateAction<{ [key: string]: IAddress }>>
+  addresses: { [key: string]: IAddress[] },
+  setAddresses: Dispatch<SetStateAction<{ [key: string]: IAddress[] }>>
 }
 
 export type WalletContextType = {

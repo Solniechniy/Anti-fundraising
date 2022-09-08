@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useData } from 'providers/DataProvider';
-import { Case } from 'providers/interfaces';
+import { Case, IAddress } from 'providers/interfaces';
 import Address from 'shared/components/Address';
 import { ListItem } from 'shared/components/List';
 
@@ -32,7 +32,8 @@ export function CasePage() {
   }, [id, cases, singleCase]);
 
   if (Object.keys(cases).length === 0 || !singleCase) return <h1>No Cases</h1>;
-  const addressesArray = Object.values(addresses);
+  const addressesArray: IAddress[] = addresses[Number(id)] || [];
+
   return (
     <CaseWrapper>
       <ListItem singleCase={singleCase} isStatic />

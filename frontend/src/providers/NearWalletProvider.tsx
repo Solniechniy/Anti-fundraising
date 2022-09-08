@@ -54,23 +54,9 @@ export function WalletProvider({ children }:{ children: JSX.Element }) {
   const isSignedIn = useMemo(() => wallet?.isSignedIn() ?? false, [wallet]);
   const accountId: string = useMemo(() => (isSignedIn ? wallet?.getAccountId() : ''), [isSignedIn, wallet]);
 
-  const signOut = useCallback((tokenBalance: string, lockedAmount: string, token: FungibleTokenContract | null) => {
-    // if (!wallet || !near || !token) return;
-    // showModal(EModals.SIGN_OUT_MODAL, {
-    //   handleConfirm: () => {
-    //     wallet?.signOut();
-    //     window.location.reload();
-    //   },
-    //   changeAccount: () => {
-    //     wallet?.signOut();
-    //     requestSignIn();
-    //   },
-    //   accountId,
-    //   tokenBalance,
-    //   lockedAmount,
-    //   token,
-    // });
-  }, [wallet, near, showModal, accountId]);
+  const signOut = useCallback(() => {
+
+  }, []);
 
   const sendTransaction = useCallback(async (action: Action[]) => {
     if (!wallet || !near) return;

@@ -13,6 +13,8 @@ export const ListWrapper = styled.div`
   background-color: rgb(29,29,35);
   width: 699px;
   height: 959px;
+  align-self: center;
+  border-radius: 24px;
 `;
 
 export const ListItemWrapper = styled.div`

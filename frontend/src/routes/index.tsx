@@ -9,6 +9,7 @@ import {
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 
+import { Header } from 'pages/header';
 import HomePage from 'pages/home-page';
 
 import { APP_ROUTES } from './constant';
@@ -48,13 +49,13 @@ export default function AppRoutes(): JSX.Element {
   return (
     <Router>
       <Container>
-        <Background />
-
         <Pages isOpened={isOpened}>
-          <Routes>
-            <Route path={APP_ROUTES.HOME} element={<HomePage />} />
-            <Route path={APP_ROUTES.DEFAULT} element={<Navigate replace to={APP_ROUTES.HOME} />} />
-          </Routes>
+          <Header isOpened={isOpened}>
+            <Routes>
+              <Route path={APP_ROUTES.HOME} element={<HomePage />} />
+              <Route path={APP_ROUTES.DEFAULT} element={<Navigate replace to={APP_ROUTES.HOME} />} />
+            </Routes>
+          </Header>
         </Pages>
         <ToastContainer />
       </Container>

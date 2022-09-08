@@ -22,14 +22,14 @@ export const ListWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const ListItemWrapper = styled.div`
+export const ListItemWrapper = styled.div<{ isStatic: boolean }>`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   border-radius: 16px;
   padding: 8px;
   :hover{
-    background-color: rgb(41,40,46);
+    ${({ isStatic }) => !isStatic && 'background-color:rgb(41,40,46);'}
   }
 `;
 
@@ -159,9 +159,9 @@ const formatCaseDate = (date: Date) => {
   }
 };
 
-export function ListItem({ singleCase }: { singleCase: Case }){
+export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, isStatic?: boolean }){
   return (
-    <ListItemWrapper>
+    <ListItemWrapper isStatic={isStatic}>
       <Column>
         <Row justify="flex-start">
           <CaseTitle>

@@ -2,13 +2,13 @@ import styles from './styles';
 
 interface ITextArea {
   value: string;
-  setValue: any;
+  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   title: string;
   subTitle: string,
 }
 export default function TextArea({
   value,
-  setValue,
+  handleChange,
   title,
   subTitle,
 }:ITextArea) {
@@ -20,7 +20,8 @@ export default function TextArea({
       </styles.Title>
       <styles.StyledTextArea
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
+        name="description"
       />
     </styles.Container>
   );

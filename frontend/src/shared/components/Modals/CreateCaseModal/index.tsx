@@ -27,11 +27,17 @@ export interface IValues {
 export default function CreateCaseModal({
   closeModal,
 }: ICreateCaseModal): JSX.Element | null {
-  const [values, setValues] = useState<string>(initialFormValue.caseName);
-  const [select, setSelect] = useState<string>(initialFormValue.category);
-  const [textArea, setTextArea] = useState<string>(initialFormValue.description);
+  const [form, setForm] = useState<IValues>(initialFormValue);
   const categoryArray = Object.entries(category);
-  console.log(values, select, textArea);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const nextFormState = {
+      ...form,
+      [e.target.name]: e.target.value,
+    };
+    setForm(nextFormState);
+  };
+
   return (
     <ModalWrapper closeModal={closeModal} isCentered>
       <styles.Header>
@@ -42,18 +48,18 @@ export default function CreateCaseModal({
       </styles.Header>
       <styles.Body>
         <InputContainer
-          value={values}
-          setValue={setValues}
+          value={form.caseName}
+          handleChange={handleChange}
           title="Case Name"
         />
         <Select
           category={categoryArray}
           title="Category"
-          setValues={setSelect}
+          handleChange={handleChange}
         />
         <TextArea
-          value={textArea}
-          setValue={setTextArea}
+          value={form.description}
+          handleChange={handleChange}
           title="Description"
           subTitle="(Option)"
         />

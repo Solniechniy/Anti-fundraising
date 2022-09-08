@@ -2,12 +2,12 @@ import styles from './styles';
 
 interface IInputContainer {
   value: string;
-  setValue: any;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
 }
 export default function InputContainer({
   value,
-  setValue,
+  handleChange,
   title,
 }:IInputContainer) {
   return (
@@ -17,7 +17,8 @@ export default function InputContainer({
       </styles.Title>
       <styles.StyledInput
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={handleChange}
+        name="caseName"
       />
     </styles.Container>
   );

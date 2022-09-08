@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './services/translation';
 import './index.css';
 
-function AppWrapper() {
+export default function AppWrapper() {
   return (
     <ThemeProvider theme={theme}>
       <ModalProvider>

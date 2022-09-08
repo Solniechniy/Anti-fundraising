@@ -12,6 +12,13 @@ export enum Status {
   'Approved',
 }
 
+export const StatusMap = {
+  [Status.Approved]: 'Approved',
+  [Status.Pending]: 'Pending',
+  [Status.Rejected]: 'Rejected',
+  [Status.Approved]: 'Approved',
+};
+
 export enum Chain {
   'BNB' = 1,
   'NEAR',
@@ -19,12 +26,27 @@ export enum Chain {
   'Bitcoin',
 }
 
+export enum Category {
+  'Scam' = 1,
+  'DEFI',
+  'Terrorism',
+}
+
+export const CategoryMap = {
+  [Category.Scam]: 'Scam',
+  [Category.Terrorism]: 'Terrorism',
+  [Category.DEFI]: 'DEFI',
+};
+
 export interface Case {
   id: string;
+  title: string;
   description: string;
   date: Date;
   ipfsLink: string;
+  category: Category;
   addressesIds: string[];
+  status: Status;
 }
 
 export interface Address {

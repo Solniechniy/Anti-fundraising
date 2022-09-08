@@ -2,7 +2,6 @@ import nearIcon from 'assets/images/icons/near-icon.svg';
 import wNearIcon from 'assets/images/icons/wnear-icon.svg';
 import Big from 'big.js';
 import { formatNearAmount } from 'near-api-js/lib/utils/format';
-import { parseTokenAmount } from 'shared/utils';
 
 import getConfig from 'services/config';
 import { createContract } from 'services/helpers';
@@ -25,6 +24,7 @@ import {
   STORAGE_TO_REGISTER_WNEAR,
   ZERO,
 } from 'shared/constant';
+import { parseTokenAmount } from 'shared/utils';
 
 import { ftChangeMethods, ftViewMethods } from './contractMethods';
 

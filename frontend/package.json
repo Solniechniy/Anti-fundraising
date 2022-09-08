@@ -6,6 +6,7 @@
     "big.js": "^6.1.1",
     "bn.js": "^5.2.0",
     "borsh": "^0.7.0",
+    "date-fns": "^2.29.2",
     "dayjs": "^1.11.1",
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",

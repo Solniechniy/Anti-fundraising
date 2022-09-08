@@ -3,7 +3,9 @@ import {
   Dispatch, SetStateAction,
 } from 'react';
 
-import { FungibleTokenContract } from 'services/contracts';
+import { ReactComponent as BinanceIcon } from 'assets/images/binance.svg';
+import { ReactComponent as BitcoinIcon } from 'assets/images/bitcoin.svg';
+import { ReactComponent as EthereumIcon } from 'assets/images/ethereum.svg';
 
 export enum Status {
   'Loaded' = 1,
@@ -20,10 +22,34 @@ export const StatusMap = {
 };
 
 export enum Chain {
-  BNB = 1,
+  BNB = 0,
   NEAR,
   Ethereum,
   Bitcoin,
+}
+
+export const ChainMap = {
+  [Chain.BNB]: 'BNB',
+  [Chain.NEAR]: 'NEAR',
+  [Chain.Ethereum]: 'Ethereum',
+  [Chain.Bitcoin]: 'Bitcoin',
+};
+
+export const ChainMapIcon = {
+  [Chain.BNB]: BinanceIcon,
+  [Chain.NEAR]: BinanceIcon,
+  [Chain.Ethereum]: EthereumIcon,
+  [Chain.Bitcoin]: BitcoinIcon,
+};
+
+export function getChainIcon(chain: Chain){
+  switch (chain){
+    case Chain.BNB: return BinanceIcon;
+    case Chain.NEAR: return BinanceIcon;
+    case Chain.Ethereum: return EthereumIcon;
+    case Chain.Bitcoin: return BitcoinIcon;
+    default: return BinanceIcon;
+  }
 }
 
 export enum Category {

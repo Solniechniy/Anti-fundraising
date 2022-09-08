@@ -1,18 +1,35 @@
 import styled from 'styled-components';
 
-import { CategoryMap } from 'providers/interfaces';
+import {
+  CategoryMap, Chain, ChainMap, getChainIcon,
+} from 'providers/interfaces';
 
 import { formatCaseDate } from '../List';
 
 const AddressWrapper = styled.div`
-
+  padding: 16px;
+  background-color: #B8B8BF1A;
+  border-radius: 16px;
 `;
 
 const AddressTitle = styled.h1`
-  
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 12px;
 `;
+
 const AdditionalInfo = styled.div`
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 
 `;
 
@@ -38,8 +55,10 @@ export const CategoryWrapper = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   margin-left: 10px;
+  justify-content: flex-start;
+  padding: 0 4px;
 `;
 
 export const CategoryText = styled.p`
@@ -61,6 +80,7 @@ export const CategoryText = styled.p`
 `;
 
 export default function Address(){
+  const Image = getChainIcon(Chain.Bitcoin);
   return (
     <AddressWrapper>
       <AddressTitle>18888888EENAhksSohAkYwq7F18ENAhksSohAkYwq7F</AddressTitle>
@@ -69,11 +89,11 @@ export default function Address(){
           {`Added: ${formatCaseDate(new Date())} UTC`}
         </DateWrapper>
         <CategoryWrapper>
-          <CategoryText>{CategoryMap[0]}</CategoryText>
+          <CategoryText>{CategoryMap[1]}</CategoryText>
         </CategoryWrapper>
-
         <CategoryWrapper>
-          <CategoryText>{CategoryMap[2]}</CategoryText>
+          <Image />
+          <CategoryText>{ChainMap[1]}</CategoryText>
         </CategoryWrapper>
       </AdditionalInfo>
     </AddressWrapper>

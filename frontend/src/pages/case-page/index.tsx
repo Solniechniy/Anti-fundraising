@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useData } from 'providers/DataProvider';
 import { Case } from 'providers/interfaces';
+import Address from 'shared/components/Address';
 import { ListItem } from 'shared/components/List';
 
 export const CaseWrapper = styled.div`
@@ -26,6 +27,7 @@ export function CasePage(){
   return (
     <CaseWrapper>
       <ListItem singleCase={cases[0]} isStatic />
+      <Address />
     </CaseWrapper>
   );
 }

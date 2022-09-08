@@ -149,14 +149,12 @@ export const RightRow = styled.div`
 export default function Address({ address }: { address: IAddress }){
   const Image = getChainIcon(address.chain);
   const date = new Date(Number(address.date));
-  console.log(address);
 
   return (
     <AddressWrapper>
       <Row>
         <AddressTitle>{address.address}</AddressTitle>
         <RightRow>
-          <StatusComponent status={address.status} />
           {address.ipfs
             && (
             <DiagramRow href={address.ipfs}>
@@ -167,6 +165,7 @@ export default function Address({ address }: { address: IAddress }){
               <DiagramArrow />
             </DiagramRow>
             )}
+          <StatusComponent status={address.status} />
         </RightRow>
       </Row>
       <AdditionalInfo>
@@ -176,9 +175,9 @@ export default function Address({ address }: { address: IAddress }){
         <ReporterTitle>
           {address.reporter}
         </ReporterTitle>
-        <CategoryWrapper>
-          <CategoryText>{CategoryMap[Category.TerroristFinancing]}</CategoryText>
-        </CategoryWrapper>
+        {/* <CategoryWrapper>
+          <CategoryText>{CategoryMap[address.category]}</CategoryText>
+        </CategoryWrapper> */}
         <CategoryWrapper>
           <Image />
           <CategoryText>{ChainMap[address.chain]}</CategoryText>

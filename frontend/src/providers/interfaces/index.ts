@@ -3,7 +3,7 @@ import {
   Dispatch, SetStateAction,
 } from 'react';
 
-import { ReactComponent as BinanceIcon } from 'assets/images/binance.svg';
+import { ReactComponent as NearIcon, ReactComponent as BinanceIcon } from 'assets/images/binance.svg';
 import { ReactComponent as BitcoinIcon } from 'assets/images/bitcoin.svg';
 import { ReactComponent as EthereumIcon } from 'assets/images/ethereum.svg';
 import { Action } from 'services/interfaces';
@@ -38,7 +38,7 @@ export const ChainMap = {
 
 export const ChainMapIcon = {
   [Chain.BNB]: BinanceIcon,
-  [Chain.NEAR]: BinanceIcon,
+  [Chain.NEAR]: NearIcon,
   [Chain.ETH]: EthereumIcon,
   [Chain.Bitcoin]: BitcoinIcon,
 };
@@ -46,7 +46,7 @@ export const ChainMapIcon = {
 export function getChainIcon(chain: Chain){
   switch (chain){
     case Chain.BNB: return BinanceIcon;
-    case Chain.NEAR: return BinanceIcon;
+    case Chain.NEAR: return NearIcon;
     case Chain.ETH: return EthereumIcon;
     case Chain.Bitcoin: return BitcoinIcon;
     default: return BinanceIcon;

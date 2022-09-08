@@ -40,6 +40,7 @@ export const Column = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
 `;
 
 export const Row = styled.div<{ justify?: string, align?: string }>`
@@ -47,6 +48,7 @@ export const Row = styled.div<{ justify?: string, align?: string }>`
   justify-content: ${({ justify }) => (justify || 'center')};
   flex-direction: row;
   margin: 9.5px;
+
 `;
 
 export const CaseTitle = styled.h1`
@@ -184,12 +186,12 @@ export function ListItem({ singleCase, isStatic = false }: { singleCase: Case, i
             {singleCase.id}
           </Id>
           <CategoryWrapper>
-            <CategoryText>{CategoryMap[singleCase.category]}</CategoryText>
+            <CategoryText>{CategoryMap[singleCase.category].replace(/([A-Z])/g, ' $1').trim()}</CategoryText>
           </CategoryWrapper>
         </Row>
       </Column>
-      <Column>
-        <Row>
+      <Column className="dateWrapperColumn" style={{ justifyContent: 'flex-end' }}>
+        <Row className="dateWrapper" style={{ height: '22.5px' }}>
           <DateWrapper>
             {`Updated: ${formatCaseDate(singleCase.date)} UTC`}
           </DateWrapper>

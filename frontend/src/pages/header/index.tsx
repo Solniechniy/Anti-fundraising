@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { ReactComponent as WalletLogo } from 'assets/icons/wallet.svg';
+import { ReactComponent as Contraise } from 'assets/images/Contraise.svg';
 import { useWalletData } from 'providers/NearWalletProvider';
 
 export const Primary = styled.button<{ isActive?: boolean }>`
@@ -64,7 +65,12 @@ export const HeaderComponent = styled.div`
     justify-content: space-between;
   `}
 `;
-export const HeaderLogo = styled.p``;
+export const HeaderLogo = styled.p`
+  >svg {
+    width: 100px;
+    max-height: 40px;
+  }
+`;
 export const HeaderRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -92,7 +98,7 @@ export function Header({ children }: { children: any }){
     <HeaderComponent>
       <HeaderRow>
         <HeaderLogo>
-          LOGO
+          <Contraise />
         </HeaderLogo>
         <Button
           onClick={buttonAction}

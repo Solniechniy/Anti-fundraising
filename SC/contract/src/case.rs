@@ -45,6 +45,7 @@ pub struct CaseOutput {
     pub date: U64,
     pub ipfs: String,
     pub category: HapiCategory,
+    pub num_addresses: u64,
 }
 
 /// Case information.
@@ -80,6 +81,7 @@ impl From<VCase> for CaseOutput {
                 date: case.date.into(),
                 ipfs: case.ipfs,
                 category: case.category,
+                num_addresses: case.addresses.len()
             },
         }
     }
@@ -90,7 +92,7 @@ impl VCase {
         Self::Current(Case {
             title: case_input.title,
             description: case_input.description,
-            date: env::block_timestamp(),
+            date: env::block_timestamp_ms(),
             ipfs: case_input.ipfs,
             category: case_input.category,
             addresses: UnorderedMap::new(StorageKey::Addresses { case_id }),
@@ -126,7 +128,7 @@ impl CaseManagment for Contract {
             .into();
 
         case.ipfs = ipfs_link;
-        case.date = env::block_timestamp();
+        case.date = env::block_timestamp_ms();
 
         self.cases.insert(&case_id, &VCase::Current(case));
     }

@@ -75,3 +75,5 @@ near view $CONTRACT_ID get_addresses '{"case_id": 0}'
 ```
 
 near call $CONTRACT_ID add_admin '{"account_id":"failure.testnet"}' --accountId $OWNER_ID
+near call $CONTRACT_ID update_case_link '{"case_id":0, "ipfs_link": "new_link"}' --accountId $OWNER_ID
+near call $CONTRACT_ID update_address_link '{"case_id":0,"address":"proverka.testnet", "chain":"NEAR", "ipfs_link": "new_link"}' --accountId $OWNER_ID

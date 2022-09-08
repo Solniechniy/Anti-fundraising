@@ -37,6 +37,4 @@ impl Owner for Contract {
 
         self.admins.insert(&account_id);
     }
-
-   
 }

@@ -2,8 +2,11 @@ import { format } from 'date-fns';
 import styled from 'styled-components';
 
 import {
-  Case, Category, CategoryMap, Status, StatusMap,
+  Case, CategoryMap,
 } from 'providers/interfaces';
+
+import Pagination from '../Pagination';
+import { StatusComponent } from '../Status';
 
 export const ListWrapper = styled.div`
   padding: 24px;
@@ -16,7 +19,11 @@ export const ListItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin: 30px;
+  border-radius: 16px;
+  padding: 8px;
+  :hover{
+    background-color: rgb(41,40,46);
+  }
 `;
 
 export const Column = styled.div`
@@ -110,14 +117,6 @@ export const CategoryText = styled.p`
   margin: 2px 4px;
 `;
 
-export const StatusWrapper = styled.div<{ statusEnum: Status }>`
-  background-color: ${({ statusEnum }) => (statusEnum === Status.Loaded ? '#8FD958' : '#FF5F6033')};
-`;
-
-export function StatusComponent(){
-  return <StatusWrapper statusEnum={Status.Approved}>Approve</StatusWrapper>;
-}
-
 const formatCaseDate = (date: Date) => format(date, 'yyyy-mm-dd, hh:mm:ss');
 
 export function ListItem({ singleCase }: { singleCase: Case }){
@@ -141,10 +140,10 @@ export function ListItem({ singleCase }: { singleCase: Case }){
         </Row>
       </Column>
       <Column>
-        <Row>
+        <Row justify="flex-end">
           Show Diagram
 
-          <StatusComponent />
+          <StatusComponent singleCase={singleCase} />
         </Row>
         <Row>
           <DateWrapper>
@@ -160,6 +159,7 @@ export default function List({ cases }:{ cases: Case[] }){
   return (
     <ListWrapper>
       {cases.map((el) => <ListItem key={el.id} singleCase={el} />) }
+      <Pagination currentPage={1} countOfListItems={10} changePageHandler={() => {}} />
     </ListWrapper>
   );
 }

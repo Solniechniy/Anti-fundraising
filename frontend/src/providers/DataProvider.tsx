@@ -73,10 +73,11 @@ export function DataProvider({ children }:{ children: JSX.Element }) {
         const pagesResults: Case[] = await retrieveCaseResult(pages, caseContract);
         const addressesResults = await retrieveAddresses(pagesResults, caseContract);
         const filteredAddresses = addressesResults
-          .filter(isNotNullOrUndefined)
-          .filter((value) => Object.keys(value).length !== 0);
+          .filter(isNotNullOrUndefined);
+
         const casesMap = toMap(pagesResults);
         const addressesMap = filteredAddresses.reduce((acc, item, index) => ({ ...acc, [index]: item }), {});
+        console.log(addressesResults, pagesResults);
         setCases(casesMap);
         setAddresses(addressesMap);
       } catch (e) {

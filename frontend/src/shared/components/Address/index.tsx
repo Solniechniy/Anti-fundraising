@@ -149,7 +149,7 @@ export const RightRow = styled.div`
 export default function Address({ address }: { address: IAddress }){
   const Image = getChainIcon(address.chain);
   const date = new Date(Number(address.date));
-
+  console.log(address);
   return (
     <AddressWrapper>
       <Row>

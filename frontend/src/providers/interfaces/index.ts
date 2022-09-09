@@ -27,7 +27,7 @@ export enum Chain {
   BNB = 'BNB',
   NEAR = 'NEAR',
   ETH = 'ETH',
-  Bitcoin = 'Bitcoin',
+  BTC = 'BTC',
 }
 
 export const ChainMap = {
@@ -35,14 +35,14 @@ export const ChainMap = {
   [Chain.BNB]: 'BNB',
   [Chain.NEAR]: 'NEAR',
   [Chain.ETH]: 'ETH',
-  [Chain.Bitcoin]: 'Bitcoin',
+  [Chain.BTC]: 'BTC',
 };
 
 export const ChainMapIcon = {
   [Chain.BNB]: BinanceIcon,
   [Chain.NEAR]: NearIcon,
   [Chain.ETH]: EthereumIcon,
-  [Chain.Bitcoin]: BitcoinIcon,
+  [Chain.BTC]: BitcoinIcon,
 };
 
 export function getChainIcon(chain: Chain){
@@ -50,7 +50,7 @@ export function getChainIcon(chain: Chain){
     case Chain.BNB: return BinanceIcon;
     case Chain.NEAR: return NearIcon;
     case Chain.ETH: return EthereumIcon;
-    case Chain.Bitcoin: return BitcoinIcon;
+    case Chain.BTC: return BitcoinIcon;
     default: return BinanceIcon;
   }
 }
